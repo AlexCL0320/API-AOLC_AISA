@@ -1,27 +1,27 @@
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #051d25;
-    border: white;
-    color: white;
+    background-color: #f2f2f2;
+    border: black;
+    color: black;
     
 } 
 th{
     padding: 8px;
     text-align: left;
-    border-color: white;
-    color: white;
+    border-color: black;
+    color: black;
 }
 
 td {
     padding: 8px;
     text-align: left;
-    border-color: white;
-    color: white;
+    border-color: black;
+    color: black;
 }
 th {
-    background-color: #051d25;
-    border-color: white;
-    color: white;
+    background-color: #f2f2f2;
+    border-color: black;
+    color: black;
 }
   
