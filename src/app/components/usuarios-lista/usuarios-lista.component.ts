@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { Pokemon, PokemonApiResponse } from './pokemon.interface'; 
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { PokemonDetailsComponent } from '../../pokemon-details/pokemon-details.component';
+import { PokemonEditComponent } from '../pokemon-edit/pokemon-edit.component';
 
 
 
@@ -74,7 +75,27 @@ export class UsuariosListaComponent implements OnInit {
 
   editarPokemon(pokemon: Pokemon): void {
     console.log('Editar Pokémon:', pokemon);
-    // Implementa la lógica para editar el Pokémon
+    
+    const dialogRef = this.dialog.open(PokemonEditComponent, {
+      data: { ...pokemon }, // Pasamos una copia del Pokémon a editar
+      width: '400px',
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.action === 'save') {
+        console.log('Guardando cambios del Pokémon:', result.data);
+        // Aquí puedes implementar la lógica para guardar cambios, como una llamada al servicio
+        const index = this.dataSource.data.findIndex((p) => p.id === result.data.id);
+        if (index >= 0) {
+          this.dataSource.data[index] = result.data;
+          this.dataSource.data = [...this.dataSource.data]; // Refrescar el dataSource
+        }
+      } else if (result?.action === 'delete') {
+        console.log('Eliminando Pokémon:', result.data);
+        // Implementar lógica para eliminar el Pokémon
+        this.dataSource.data = this.dataSource.data.filter((p) => p.id !== result.data.id);
+      }
+    });
   }
 
   eliminarPokemon(pokemon: Pokemon): void {
