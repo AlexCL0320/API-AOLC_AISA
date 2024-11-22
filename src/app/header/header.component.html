@@ -1,8 +1,21 @@
 <mat-card appearance="outlined" class="header">
     <mat-card-content>
-        <app-menu></app-menu>
-        <a style="padding-left: 2%;" class="social-links" href="https://github.com/AlexCL0320" target="_blank">
-            <img src="/assets/git.png" alt="GitHub Logo" width="40" height="40" style="vertical-align: middle;">
-        </a> AlexCL0320
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px;">
+    <!-- Imagen y texto alineados a la izquierda -->
+    <div style="display: flex; align-items: center;">
+        <a href="https://github.com/AlexCL0320" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+            <img src="/assets/R.png" alt="GitHub Logo" width="40" height="40" style="vertical-align: middle; margin-right: 8px;">
+            {{userName}}
+        </a>
+    </div>
+
+    <!-- Menú alineado a la derecha -->
+    <div>
+        <div>
+            <img [src]="userImageUrl" alt="User" width="55" height="55" style="vertical-align: middle; margin-right: 8px; border-radius: 50%;">
+            <app-menu></app-menu>
+        </div>
+    </div>
+</div>
     </mat-card-content>
 </mat-card>

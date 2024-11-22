@@ -1,12 +1,13 @@
 .content{
-  margin-left: 12%; 
-  background-color: #212830; 
+  margin-left: 3%; 
+  background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);
   color: mintcream;
   border-radius: 10px; 
+  padding-top: 3%;
+  padding-left: 5%;
   margin-bottom: 5%; 
   margin-right: 2%; 
   margin-top: 2%; 
-  display:flex; 
   justify-content: center;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
   border: black;

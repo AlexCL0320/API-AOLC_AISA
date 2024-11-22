@@ -1,25 +1,25 @@
 <div  class="container text-center mt-5" style="display: flex; align-items: center; justify-content: center;  height: 100vh;">
-  <mat-card class="example-card" style="display: flex; justify-content: center;  align-items: center; border-radius: 12px; background-color: #051d25 " appearance="outlined">
+  <mat-card class="example-card" style="display: flex; justify-content: center;  align-items: center; border-radius: 12px; background: linear-gradient(135deg, #dec604, #7a6200) " appearance="outlined">
     <div mat-card-avatar class="example-header-image"></div>
     <mat-card-header>    
-      <mat-card-title style="color: white; font-size: 16px; ">Bienvenido a Angular</mat-card-title>
+      <mat-card-title style="color: black; font-size: 16px; font-weight: bold; font-family: Cascadia Code; ">Bienvenido a Aventurero</mat-card-title>
       <br><br>
       <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
     </mat-card-header>
     <mat-card-content>
       <mat-form-field style="width: 400px; margin-top: 6%;" class="llenarInformacion">
-        <mat-label>Correo Electrónico</mat-label>
-        <input  type="email" matInput placeholder="Ingresa Email" [(ngModel)]="log_gmail">
+        <mat-label style="font-family: Cascadia Code;" >Correo Electrónico</mat-label>
+        <input style="font-family: Cascadia Code;" type="email" matInput placeholder="Ingresa Email" [(ngModel)]="log_gmail">
       </mat-form-field>
       <br>
       <br>
       <mat-form-field style="width: 400px; border-radius: 28px;" class="llenarInformacion">
-        <mat-label>Contraseña</mat-label>
-        <input type="password" matInput placeholder="Ingresa Contraseña" [(ngModel)]="log_password">
+        <mat-label style="font-family: Cascadia Code;" >Contraseña</mat-label>
+        <input  style="font-family: Cascadia Code;" type="password" matInput placeholder="Ingresa Contraseña" [(ngModel)]="log_password">
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions style="justify-content: center; padding-bottom: 1%;">
-      <button mat-flat-button style="background-color: #005e5e; color: #57ededeb; font-style: normal; width: 200px;" (click)="ingresar()"> Acceder</button>
+      <button mat-flat-button style="background-color: #2A313C; color: white; font-style: normal; width: 200px;" (click)="ingresar()"> Acceder</button>
     </mat-card-actions>
   </mat-card>
   </div>

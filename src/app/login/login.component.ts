@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { UserService } from '../services/user.service';  // Asegúrate de que la ruta sea correcta
+import { GlobalUserService } from '../services/global-user.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class LoginComponent {
   reg_conf_password: string = '';
 
   hidePassword: boolean = true;
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, 
+    private globalUserService: GlobalUserService) {}
   verContrase() {
     this.hidePassword = !this.hidePassword;
   }
@@ -37,13 +39,16 @@ export class LoginComponent {
      this.userService.getUsers().subscribe(
       (users) => {
         const validUser = users.find(
-          user => user.email === this.log_gmail && user.password === this.log_password
+          user => user.login === this.log_gmail && user.node_id === this.log_password
         );
         //validar contraseña y gmail
         //si son correctos
         if (validUser) {
           alert('Inicio de sesión exitoso');
           console.log('Exito');
+          // Guardar la URL de la imagen del usuario
+          this.globalUserService.setUserImageUrl(validUser.avatar_url);
+          this.globalUserService.setUserName(validUser.login);
           this.router.navigate(['/home']);  
         } else {
           console.log('Correo o contraseña incorrectos');

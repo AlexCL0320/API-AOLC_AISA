@@ -1,27 +1,36 @@
+
+table mat-row:nth-child(even) {
+    background-color: #c9c9c9; /* Color para las filas pares */
+  }
+  
+  table mat-row:nth-child(odd) {
+    background-color: #ffffff; /* Color para las filas impares */
+  }
 table {
     width: 100%;
     border-collapse: collapse;
-    background-color: #f2f2f2;
-    border: black;
+    background-color: #c9c9c9;
+    border-bottom: 1px solid black; /* Define el grosor y color de la tabla */
     color: black;
-    
-} 
-th{
+}
+
+th {
+
+    color: #c9c9c9;
+    font-family: Cascadia Code;
+    font-size: 17px;
     padding: 8px;
+    /*border-right: 1px solid #212830;*/
     text-align: left;
-    border-color: black;
-    color: black;
+    /*border: 1px solid black; /* Aplica un borde consistente a celdas */
+    border-radius: 1px;
 }
 
 td {
     padding: 8px;
     text-align: left;
-    border-color: black;
-    color: black;
+    border-bottom: 1px solid black; /* Aplica un borde consistente a celdas */
+    font-family: Cascadia Code;
+    font-size: 15px;
 }
-th {
-    background-color: #f2f2f2;
-    border-color: black;
-    color: black;
-}
-  
+

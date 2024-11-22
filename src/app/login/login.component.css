@@ -7,7 +7,7 @@
   
   
   .example-header-image {
-    background-image: url('https://i.pinimg.com/736x/e4/f3/83/e4f383c0344e99637fca46ec3e146403.jpg');
+    background-image: url("/assets/R.png");
     background-size: cover;
     background-position: center;
     display: flex;

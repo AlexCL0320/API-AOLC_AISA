@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'https://fakestoreapi.com/users';
+  private apiUrl = 'https://api.github.com/users';
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any[]> {
