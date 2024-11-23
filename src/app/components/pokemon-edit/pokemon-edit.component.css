@@ -1,0 +1,88 @@
+/* Estilo principal para el card */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  font-family: Cascadia Code;
+}
+  
+  .dialog-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-family: 'Cascadia Code', sans-serif;
+  }
+  
+  
+  .dialog-header button {
+    background-color: #2a2d3e;
+    color: #cccccc;
+    padding-top: 0%;
+    height: 25px;
+  }
+  
+  .dialog-header button:hover {
+    color: #cccccc;
+  }
+  
+  /* Estilo del contenido del formulario */
+  mat-dialog-content {
+    background-color: #2a2d3e; /* Azul oscuro */
+    color: #ffffff;
+    padding: 20px;
+    font-family: 'Cascadia Code', sans-serif;
+  }
+  
+  mat-dialog-content mat-form-field {
+    margin-bottom: 15px;
+  }
+  
+  mat-dialog-content img {
+    display: block;
+    margin: 0 auto;
+    border: 2px solid #ff9800;
+    border-radius: 50%;
+  }
+  
+  /* Estilo para los botones */
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #2a2d3e;
+    padding: 15px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+  
+  mat-dialog-actions button {
+    font-family: 'Cascadia Code', sans-serif;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 8px 15px;
+    border-radius: 4px;
+  }
+  
+  mat-dialog-actions button:first-child {
+    background-color: #4caf50; /* Verde para guardar */
+    color: #ffffff;
+    margin-right: 10px;
+  }
+  
+  mat-dialog-actions button:first-child:hover {
+    background-color: #45a049;
+  }
+  
+  mat-dialog-actions button:last-child {
+    background-color: #f44336; /* Rojo para cancelar */
+    color: #ffffff;
+  }
+  
+  mat-dialog-actions button:last-child:hover {
+    background-color: #e53935;
+  }
+  

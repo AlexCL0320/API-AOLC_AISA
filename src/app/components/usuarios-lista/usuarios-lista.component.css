@@ -34,3 +34,16 @@ td {
     font-size: 15px;
 }
 
+.btn{
+  height: 30px;
+  width: 100px;
+  border-radius: 8px;
+  background-color: black;
+  color: aliceblue;
+  font-family: Cascadia Code;
+}
+
+::ng-deep .filter-input .mat-form-field-flex {
+  background-color: white; /* Color de relleno blanco */
+  border-radius: 4px;      /* Opcional: bordes redondeados */
+}

@@ -9,7 +9,6 @@ body { margin: 0;
 }
 
 
-
 html, body { 
     height: 100%; 
 }
@@ -18,6 +17,12 @@ body {
     margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
 }
 
-.icono{
-    /*background-image: url("assets/Ray.png");*/
+::ng-deep .mat-form-field {
+    background-color: #95a1ab; /* Color de fondo personalizado */
+    border-radius: 8px;       /* Bordes redondeados */
+}
+
+::ng-deep .mat-form-field-wrapper {
+    padding: 8px; /* Espaciado interno */
+    background-color: #95a1ab; /* Heredar el color del mat-form-field */
 }
