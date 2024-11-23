@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { Pokemon } from '../usuarios-lista/pokemon.interface';
+import { Pokemon } from '../pokemons-lista/pokemon.interface';
 
 @Component({
   selector: 'app-pokemon-edit',

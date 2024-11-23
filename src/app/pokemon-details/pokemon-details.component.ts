@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Pokemon } from '../components/usuarios-lista/pokemon.interface';
+import { Pokemon } from '../components/pokemons-lista/pokemon.interface';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({

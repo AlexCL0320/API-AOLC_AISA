@@ -31,8 +31,8 @@ import { MatInput } from '@angular/material/input';
     MatSelect,
     MatInput,
   ],
-  templateUrl: './usuarios-lista.component.html',
-  styleUrls: ['usuarios-lista.component.css'],
+  templateUrl: './pokemon-lista.component.html',
+  styleUrls: ['pokemon-lista.component.css'],
 })
 export class UsuariosListaComponent implements OnInit {
   tiposPokemon: string[] = ['Todos']; // Se inicializa con "Todos"

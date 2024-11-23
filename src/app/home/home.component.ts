@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { FooterComponent } from "../footer/footer.component";
 import { UserService } from '../services/user.service';
 import { CommonModule } from '@angular/common';
-import { UsuariosListaComponent } from "../components/usuarios-lista/usuarios-lista.component"; 
+import { UsuariosListaComponent } from "../components/pokemons-lista/pokemon-lista.component"; 
 
 @Component({
   selector: 'app-home',
