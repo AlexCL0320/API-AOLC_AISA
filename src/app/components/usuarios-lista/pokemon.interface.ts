@@ -5,6 +5,7 @@ export interface Pokemon {
     tipo: string;
     url: string;
     imagen?: string; // Opcional porque puede que no exista inicialmente
+    generacion: string;
   }
   
   export interface PokemonApiResponse {

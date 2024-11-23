@@ -35,8 +35,7 @@ import { MatInput } from '@angular/material/input';
   styleUrls: ['usuarios-lista.component.css'],
 })
 export class UsuariosListaComponent implements OnInit {
-  // Incluimos las nuevas columnas: 'detalles' y 'acciones'
-  tiposPokemon: string[] = []; // Se llenará dinámicamente
+  tiposPokemon: string[] = ['Todos']; // Se inicializa con "Todos"
   todosLosPokemones: Pokemon[] = []; // Para conservar todos los datos originales
 
   displayedColumns: string[] = [
@@ -44,11 +43,14 @@ export class UsuariosListaComponent implements OnInit {
     'nombre',
     'habilidades',
     'tipo',
+    'region',
     'imagen',
     'detalles',
     'acciones',
   ];
-  dataSource = new MatTableDataSource<Pokemon>([]);  
+  dataSource = new MatTableDataSource<Pokemon>([]);
+  searchQuery: string = ''; // Variable para la búsqueda
+  selectedType: string = 'Todos'; // Tipo seleccionado por defecto
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -58,42 +60,51 @@ export class UsuariosListaComponent implements OnInit {
   ) {
     this.dataSource.filterPredicate = (data: Pokemon, filter: string) => {
       const filterValue = filter.trim().toLowerCase();
-      // Busca en las propiedades relevantes
       return (
-        data.nombre.toLowerCase().includes(filterValue) || 
-        data.tipo.toLowerCase().includes(filterValue) || 
+        data.nombre.toLowerCase().includes(filterValue) ||
+        data.tipo.toLowerCase().includes(filterValue) ||
         data.habilidades.toLowerCase().includes(filterValue)
       );
     };
   }
 
   ngOnInit(): void {
+    
     this.pokemonService.getPokemons().subscribe(
       (response: PokemonApiResponse) => {
-        const pokemonData: Pokemon[] = response.results.map(
-          (pokemon, index) => ({
-            id: index + 1, // Auto-incremental
-            nombre:
-              pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1), // Capitalizamos el nombre
-            habilidades: 'No disponible', // Habilidades requerirán una consulta extra
-            tipo: 'No disponible', // Tipo también será consultado
-            url: pokemon.url, // Guardamos la URL para detalles adicionales
-          })
-        );
+        const pokemonData: Pokemon[] = response.results.map((pokemon, index) => {
+          const id = index + 1; // Calcula el ID antes de usarlo
+          return {
+            id: id, // Asigna el ID al objeto
+            nombre: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
+            habilidades: 'No disponible',
+            tipo: 'No disponible',
+            url: pokemon.url,
+            generacion: this.getPokemonGeneracion(id), // Ahora ID es reconocido
+          };
+        });
 
-        // Consultamos los detalles de cada Pokémon
         pokemonData.forEach((pokemon) => {
-          this.pokemonService.getPokemonDetails(pokemon.url).subscribe((details) => {
-            pokemon.habilidades = details.abilities.map((ability: any) => ability.ability.name).join(', ');
-            pokemon.tipo = details.types.map((type: any) => type.type.name).join(', ');
-            pokemon.imagen = details.sprites.front_default || '/assets/default-pokemon.png';
-            this.dataSource.data = [...pokemonData];
-            this.todosLosPokemones = [...pokemonData]; // Guardamos todos los datos originales
+          this.pokemonService
+            .getPokemonDetails(pokemon.url)
+            .subscribe((details) => {
+              pokemon.habilidades = details.abilities
+                .map((ability: any) => ability.ability.name)
+                .join(', ');
+              pokemon.tipo = details.types
+                .map((type: any) => type.type.name)
+                .join(', ');
+              pokemon.imagen =
+                details.sprites.front_default || '/assets/default-pokemon.png';
+              this.dataSource.data = [...pokemonData];
+              this.todosLosPokemones = [...pokemonData];
 
-            // Obtener tipos únicos
-            const tipos = details.types.map((type: any) => type.type.name);
-            this.tiposPokemon = Array.from(new Set([...this.tiposPokemon, ...tipos]));
-          });
+              // Actualizamos los tipos únicos
+              const tipos = details.types.map((type: any) => type.type.name);
+              this.tiposPokemon = Array.from(
+                new Set(['Todos', ...this.tiposPokemon, ...tipos])
+              );
+            });
         });
 
         this.dataSource.paginator = this.paginator;
@@ -116,24 +127,20 @@ export class UsuariosListaComponent implements OnInit {
     console.log('Editar Pokémon:', pokemon);
 
     const dialogRef = this.dialog.open(PokemonEditComponent, {
-      data: { ...pokemon }, // Pasamos una copia del Pokémon a editar
+      data: { ...pokemon },
       width: '400px',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.action === 'save') {
-        console.log('Guardando cambios del Pokémon:', result.data);
-        // Aquí puedes implementar la lógica para guardar cambios, como una llamada al servicio
         const index = this.dataSource.data.findIndex(
           (p) => p.id === result.data.id
         );
         if (index >= 0) {
           this.dataSource.data[index] = result.data;
-          this.dataSource.data = [...this.dataSource.data]; // Refrescar el dataSource
+          this.dataSource.data = [...this.dataSource.data];
         }
       } else if (result?.action === 'delete') {
-        console.log('Eliminando Pokémon:', result.data);
-        // Implementar lógica para eliminar el Pokémon
         this.dataSource.data = this.dataSource.data.filter(
           (p) => p.id !== result.data.id
         );
@@ -142,7 +149,6 @@ export class UsuariosListaComponent implements OnInit {
   }
 
   eliminarPokemon(pokemon: Pokemon): void {
-    console.log('Eliminar Pokémon:', pokemon);
     const confirmacion = window.confirm(
       `¿Estás seguro de que deseas eliminar a ${pokemon.nombre}?`
     );
@@ -150,33 +156,75 @@ export class UsuariosListaComponent implements OnInit {
       this.dataSource.data = this.dataSource.data.filter(
         (p) => p.id !== pokemon.id
       );
-      console.log(`Pokémon eliminado: ${pokemon.nombre}`);
-    } else {
-      console.log('Eliminación cancelada.');
     }
   }
 
-  //Funciones para filtro y busqueda
+  // Funciones para filtro y búsqueda
   applyFilter(event: Event): void {
-    const input = event.target as HTMLInputElement; // Asegura que el target es un HTMLInputElement
-    const filterValue = input.value.trim().toLowerCase(); // Obtenemos el valor del input
-    this.dataSource.filter = filterValue; // Angular Material se encargará de usar el filterPredicate
+    const input = event.target as HTMLInputElement;
+    this.searchQuery = input.value.trim().toLowerCase();
+    this.applyCombinedFilters();
   }
-  
 
   filterByType(type: string): void {
-    this.dataSource.data = this.todosLosPokemones.filter((pokemon) =>
-      pokemon.tipo.toLowerCase().includes(type.toLowerCase())
-    );
-  }
-
-  filterLegendary(): void {
-    this.dataSource.data = this.todosLosPokemones.filter(
-      (pokemon) => pokemon.tipo.includes('legendary') || pokemon.tipo.includes('mythical')
-    );
+    this.selectedType = type;
+    this.applyCombinedFilters();
   }
 
   resetFilters(): void {
-    this.dataSource.data = [...this.todosLosPokemones];
+    this.selectedType = 'Todos';
+    this.dataSource.data = this.todosLosPokemones;
+    this.searchQuery = '';
+    this.dataSource.filter = '';
+    const inputElement = document.getElementById('idBusqueda') as HTMLInputElement;
+    if (inputElement) {
+      inputElement.value = '';
+    }
   }
+
+  applyCombinedFilters(): void {
+    this.dataSource.data = this.todosLosPokemones.filter((pokemon) => {
+      const matchesType =
+        this.selectedType === 'Todos' ||
+        pokemon.tipo.toLowerCase().includes(this.selectedType.toLowerCase());
+      const matchesSearch =
+        this.searchQuery === '' ||
+        pokemon.nombre.toLowerCase().includes(this.searchQuery);
+      return matchesType && matchesSearch;
+    });
+  }
+
+  getPokemonGeneracion(id: number): string {
+    if (id >= 1 && id <= 151) {
+      return 'Kanto';
+    } else if (id >= 152 && id <= 251) {
+      return 'Johto';
+    } else if (id >= 252 && id <= 386) {
+      return 'Hoenn 3';
+    } else if (id >= 387 && id <= 493) {
+      return 'Sinnoh';
+    } else if (id >= 494 && id <= 649) {
+      return 'Unova';
+    } else if (id >= 650 && id <= 721) {
+      return 'Kalos';
+    } else if (id >= 722 && id <= 809) {
+      return 'Alola';
+    } else if (id >= 810 && id <= 905) {
+      return 'Galar';
+    } else {
+      return 'Paldea';
+    }
+  }
+
+  //Funcion para filtar por region
+  filterByRegion(region: string) {
+    if (region === 'Todos') {
+      this.dataSource.data = [...this.todosLosPokemones]; // Muestra todos los Pokémon
+    } else {
+      this.dataSource.data = this.todosLosPokemones.filter(
+        (pokemon) => pokemon.generacion === region
+      );
+    }
+  }
+  
 }

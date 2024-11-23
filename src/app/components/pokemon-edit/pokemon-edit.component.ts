@@ -40,6 +40,10 @@ import { Pokemon } from '../usuarios-lista/pokemon.interface';
         <mat-label style="font-family: Cascadia Code;">Tipo</mat-label>
         <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.tipo" />
       </mat-form-field>
+      <mat-form-field appearance="fill" style="width: 100%;">
+        <mat-label style="font-family: Cascadia Code;">Region</mat-label>
+        <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.generacion" />
+      </mat-form-field>
       <img
         [src]="data.imagen"
         alt="{{ data.nombre }}"

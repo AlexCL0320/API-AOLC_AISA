@@ -20,6 +20,7 @@ import { MatIcon } from '@angular/material/icon';
       <p><strong>Nombre:</strong> {{ data.nombre }}</p>
       <p><strong>Habilidades:</strong> {{ data.habilidades }}</p>
       <p><strong>Tipo:</strong> {{ data.tipo }}</p>
+      <p><strong>Generacion:</strong> {{ data.generacion }}</p>
     </div>
     <div mat-dialog-actions>
       <button mat-raised-button style="color:white; font-family: Cascadia Code; background-color: #cd7600; border-color: #cd7600; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" (click)="onClose()">Cerrar</button>
