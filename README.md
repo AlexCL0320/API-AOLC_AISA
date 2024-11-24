@@ -99,7 +99,7 @@ Codigo login.ts
     import { MatInputModule } from '@angular/material/input';
     import { FormsModule } from '@angular/forms';
     import { MatIconModule } from '@angular/material/icon';
-    import { UserService } from '../services/user.service';  // Asegúrate de que la ruta sea correcta
+    import { UserService } from '../services/user.service';  
     import { GlobalUserService } from '../services/global-user.service';
     
     
@@ -639,6 +639,52 @@ Por ello dentro del proyecto se debe generar servicios que se encargue de consum
 
 Generación de los Servicios
 
+Una vez generemos los servicios debemos configuras las direccion a las API(s)  de consulta en el caso de usuarios estaremos consultado la direccion:  https://api.github.com/users  mientras que para la consulta de los pokemons estaremos utilizando la dirección: https://pokeapi.co/api/v2/pokemon?limit=1302
+
+#### Configuracion de servicios
+
+Servicio para la consulta y validación de usuarios
+
+    import { Injectable } from '@angular/core';
+    import { HttpClient } from '@angular/common/http';
+    import { Observable } from 'rxjs';
+    
+    @Injectable({
+      providedIn: 'root'
+    })
+    export class UserService {
+      private apiUrl = 'https://api.github.com/users';
+      constructor(private http: HttpClient) {}
+    
+      getUsers(): Observable<any[]> {
+        return this.http.get<any[]>(this.apiUrl);
+      }
+    }
+
+Servicio para la consulta y operaciones sobre Pokemons
+
+    import { Injectable } from '@angular/core';
+    import { HttpClient } from '@angular/common/http';
+    import { Observable } from 'rxjs';
+    
+    @Injectable({
+      providedIn: 'root',
+    })
+    export class PokemonService {
+      private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1302'; // Obtenemos los primeros 50 Pokémon.
+    
+      constructor(private http: HttpClient) {}
+    
+      getPokemons(): Observable<any> {
+        return this.http.get<any>(this.apiUrl);
+      }
+    
+      getPokemonDetails(url: string): Observable<any> {
+        return this.http.get<any>(url);
+      }
+    }
+
+
 ### 3.- Configurar Modelo de Servicio (HttpCLienteModule)
 Para permitir el acceeso del servicio dentro de los compoentes de nuestro proyecto es necesario configurar las importaciones y rutas necesarias dentro del modulo de nuestro aplicacion, debemos asegurarnos de importar la libreria HttpClienteModule y definir a ruta a nuestros servicios con las instrucciónes import { UserService } from './services/user.service', import { PokemonService } from './services/pokemon.service . Para confiugrar la paginación en nuestra proyecto será necesario contemplar la importación de la libreria NgxPaginationModule
 
@@ -1065,72 +1111,47 @@ Código pokemon-edit.component.ts
     }
 
 Metodo para la eliminación de registros Pokemons
+Este metodo recibe como entrada un elemento de tipo pokemon que corresponde al registro del pokemon seleccionado para eliminación y proporciona al usuario un mensaje de confirmacion sobre la eliminacion
 
+Código eliminarPokemon
 
-### 5.- Modificacion del Archivo de Vista (html) del Componente pokemon-lista para la Presentación de la API
-Terminada la modificacion del archivo TypeScript para la recuperacion de los datos debemos proceder a la edicion del archivo usuarios-lista.component.html para inidicarle a la apliacion el como deseamos presentar nuestros datos. Para este ejemplos los datos serán presetado mediante una tabla basica donde se almacene el id, nombre, correo y rol de cada registro devuelto en el JSON.
+    eliminarPokemon(pokemon: Pokemon): void {
+        const confirmacion = window.confirm(
+          `¿Estás seguro de que deseas eliminar a ${pokemon.nombre}?`
+        );
+        if (confirmacion) {
+          this.dataSource.data = this.dataSource.data.filter(
+            (p) => p.id !== pokemon.id
+          );
+        }
+      }
 
-Para ello abimos el archivo Abrir src/app/usuarios-lista/usuarios-lista.component.html y agregaamos el
-siguiente código para crear una tabla donde se mostrarán los datos de los usuarios
+Metodo para filtar pokemons por tipos
+Este metodo recibe el elemento actual seleccionado en un Combo box que contiene los tipos de pokemons consultados y filtra todos los pokemons coincidentes para mostrarlos en la tabla
 
-    <mat-card style="border-radius: 0px; background-color: #212830; width: 1150px;">
-      <mat-card-header style="background-color: #407160d5; border-radius: 3px;">
-        <mat-card-title>Usuarios Consumo API</mat-card-title>
-      </mat-card-header>
-    
-      <mat-card-content style="background-color: #f2f2f2; border-radius: 4px;">
-        <table mat-table [dataSource]="dataSource">
-    
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef> Nombre </th>
-            <td mat-cell *matCellDef="let user"> 
-              {{ user.name?.firstname }} {{ user.name?.lastname }}  
-            </td>
-          </ng-container>
-    
-          <ng-container matColumnDef="email">
-            <th mat-header-cell *matHeaderCellDef> Correo </th>
-            <td mat-cell *matCellDef="let user"> {{ user.email }} </td>
-          </ng-container>
-    
-          <ng-container matColumnDef="telefono">
-            <th mat-header-cell *matHeaderCellDef> Teléfono </th>
-            <td mat-cell *matCellDef="let user"> {{ user.phone }} </td>
-          </ng-container>
-    
-          <ng-container matColumnDef="direccion">
-            <th mat-header-cell *matHeaderCellDef> Dirección </th>
-            <td mat-cell *matCellDef="let user"> 
-              {{ user.address ? user.address.street : 'No disponible' }} 
-            </td>
-          </ng-container>
-    
-          <ng-container matColumnDef="contraseñas">
-            <th mat-header-cell *matHeaderCellDef> Contraseña </th>
-            <td mat-cell *matCellDef="let user"> {{ user.password }} </td>
-          </ng-container>
-    
-          <ng-container matColumnDef="Imagen">
-            <th mat-header-cell *matHeaderCellDef> Usuario </th>
-            <td mat-cell *matCellDef="let user; let i = index">
-              <!-- Alternar imagen basado en el índice -->
-              <img 
-                [src]="i % 2 === 0 ? '/assets/user2.png' : '/assets/image.png'" 
-                alt="Imagen de usuario" 
-                style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;" />
-            </td>
-          </ng-container>
-    
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    
-        <!-- Paginador -->
-        <mat-paginator style="background-color: #407160d5; color: black; border-radius: 8px; font-size: 14px;" [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
-      </mat-card-content>
-    </mat-card>
+Código funcion filtrar por  tipo
 
-Ejemplo Modificación del Archivo HTML
+    filterByType(type: string): void {
+        this.selectedType = type;
+        this.applyCombinedFilters();
+      }
+
+Metodo para filtar pokemons por region
+Este metodo recibe un string con el nombre de la region a filtrar para los pokemons. El valor del string es proporcionado de acuerdo al boton presionado por el usuario, cada boton de la interfaz home envia una region diferente de acuerdo a su texto de presentacion.
+
+Código función  filtrarRegion
+
+    filterByRegion(region: string) {
+        if (region === 'Todos') {
+          this.dataSource.data = [...this.todosLosPokemones]; // Muestra todos los Pokémon
+        } else {
+          this.dataSource.data = this.todosLosPokemones.filter(
+            (pokemon) => pokemon.generacion === region
+          );
+        }
+      }
+
+Los metodos descritos ya deberan trabajar correctamente con el componente pokemon-lista.component.html editado anteriormente. Este componente ya integra la tabla de presentacion de los datos, botons de filtro por region, Combo box para el tipo pokemon asi como una barra de busqueda. El componente html ya se encuentra configurado para llamar a las funciones especificas cada vez que se seleccione una operacion sobre la data de pokemons, ya sea filtrado por Combo Box, botones o edicion del registro.
 
 ### 7.- Integración del Component en la Apliacion
 Por ultimo cuando se termina la configuración del consumo y presentación del contenido de la API el ultimo paso será definir las ruta de acceso a los compoente dentro del arhivo src/app/app.module.ts agregando las importaciónes
@@ -1155,16 +1176,16 @@ como se muestra en el siguiente código:
     export class AppModule { }
     
 
-    import { UserListComponent } from './user-list/user-list.component';
+    import { PokemonsListaComponent } from './pokemons-lista/pokemons-lista.component';
 
-Configurada el manejo de las rutas a nuestros compoenente nos dirijimos a nuestro archivo src/app.routes.ts y dentro del el configuramos las rutas reconocidas por nuestra aplicacion, esto para mostrar como pagina principal el componente login y permitir el redireccionamiento al componente home en caso que el usuario ingresado sea valido.
+Configurado el manejo de las rutas a nuestros compoenente nos dirijimos a nuestro archivo src/app.routes.ts y dentro del el configuramos las rutas reconocidas por nuestra aplicacion, esto para mostrar como pagina principal el componente login y permitir el redireccionamiento al componente home en caso que el usuario ingresado sea valido.
 
 Codigo de manejo de rutas:
 
     import { Routes } from '@angular/router';
     import { LoginComponent } from './login/login.component';
     import { HomeComponent } from './home/home.component';
-    import { UsuariosListaComponent } from './components/usuarios-lista/usuarios-lista.component'; // Asegúrate de importar correctamente
+    import { PokemonsListaComponent } from './components/pokemons-lista/pokemons-lista.component'; 
     
     export const routes: Routes = [
       { path: '', redirectTo: 'login', pathMatch: 'full' }, 
@@ -1179,7 +1200,8 @@ Codigo de manejo de rutas:
     
     ];
 
-![image](https://github.com/user-attachments/assets/3bc3cbdd-7d8c-4745-a9a8-cfffa74e3828)
+![image](https://github.com/user-attachments/assets/2b79014e-f261-4e25-8465-8698cfd6f094)
+
 Manejo de rutas
 
 Por ultimo para que nuestro proyecto cargue de manera correcta el formulario de login al ejecuttarse dentro del archivo app.component.html agregamos el siguiente código, para que el login sea cargado como componente principal
@@ -1190,38 +1212,49 @@ Instrucción de incorporacion:
       <router-outlet></router-outlet> 
     </main>
 
-![image](https://github.com/user-attachments/assets/3f85af61-bd98-4893-9c3a-7c857db093ec)
-
+![image](https://github.com/user-attachments/assets/d8a8d99b-545b-48be-9887-0ee0a977a642)
 
 Ejemplo de Incorporación del login a la Ejecución Base
 
 ### 8.- Ejecución de la Aplicacion y Comporbación del Consumo de la API
 Con esto hemos finalizado el desarrollo de la pracica; para verificar que hemos realizado correctamente el desarrollo de la aplicacion web dentro del login ingresaremos inicialmente un usario y contraseña aleatorio para verificar que la aplicaccion arroje el mensaje de alerta de usuario invalido si tratamos de loguearnos con un usuario no incluido en la api consultada.
 
-Por ultimo intentaremos loguearno nuevamente con el usuario john@gmail.com  con constraseña 	m38rmF$ para validar que se nos redirecciones a la ruta home si el usuario es reconocido como un usuario valido para la API consultada.
+Luego intentaremos loguearno nuevamente con el usuario john@gmail.com  con constraseña 	m38rmF$ para validar que se nos redirecciones a la ruta home si el usuario es reconocido como un usuario valido para la API consultada.
 
 Comando de ejecución:
     
     ng serve 
 
-![image](https://github.com/user-attachments/assets/d2765f18-db84-4e16-ad33-b77f3b7c2a5f)
 
 
-![image](https://github.com/user-attachments/assets/c6948544-2e6c-456e-b33d-36fbca90af72)
+![image](https://github.com/user-attachments/assets/b0661f76-c9c9-4845-a903-c398f0e752b9)
+
+![image](https://github.com/user-attachments/assets/4e8e0cb5-17c4-41fd-8ea3-3b27166b6b19)
 
 Ejecución de la Apliacion con Usuario Invalido
 
-![image](https://github.com/user-attachments/assets/5bbee50b-c7a0-46ed-9048-bf1a4da2818e)
+![image](https://github.com/user-attachments/assets/834aba3d-8876-40f0-ba2e-bf43f88e91ce)
 
-![image](https://github.com/user-attachments/assets/4c843c82-0e05-4c9b-91df-49bd40538a73)
+![image](https://github.com/user-attachments/assets/983346c1-0bc8-49ac-829c-ca37972c1f7e)
 
 Ejecucución de la Aplicación con Usuario Valido
 
+Al loguearno con un usuario valido nuestra aplicacion nos redigira a la ruta home donde se presentarán la tabla con la infomracion de los  pokemons consultados
+
 # Resultado Final del Consumo de la API
-![image](https://github.com/user-attachments/assets/fea019e4-2ff5-496a-a96b-3535b348dc37)
+![image](https://github.com/user-attachments/assets/4ba4eeb3-1825-4059-b7e4-26cad18f8813)
 
 
+# Operaciones Sobre la API - Pokemons
+## Filtro por tipo pokemon
+![image](https://github.com/user-attachments/assets/41d1817b-0a04-411e-9f70-784e3132c562)
 
 
+## Busqueda de pokemon especifico
+![Uploading image.png…]()
+
+
+## Filtro de pokemons por Region
+![Uploading image.png…]()
 
 
