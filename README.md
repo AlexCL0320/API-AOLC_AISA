@@ -1235,11 +1235,15 @@ Ejecución de la Apliacion con Usuario Invalido
 
 ![image](https://github.com/user-attachments/assets/834aba3d-8876-40f0-ba2e-bf43f88e91ce)
 
-![image](https://github.com/user-attachments/assets/983346c1-0bc8-49ac-829c-ca37972c1f7e)
+![image](https://github.com/user-attachments/assets/855dfe0c-d49c-4910-a2c8-94e030debd6a)
+
+
 
 Ejecucución de la Aplicación con Usuario Valido
+![image](https://github.com/user-attachments/assets/8c48ac43-5261-4d84-9234-d6487247f8a6)
 
-Al loguearno con un usuario valido nuestra aplicacion nos redigira a la ruta home donde se presentarán la tabla con la infomracion de los  pokemons consultados
+
+Al loguearnos con un usuario valido nuestra aplicacion nos redigira a la ruta home donde se presentarán la tabla con la infomracion de los  pokemons consultados
 
 # Resultado Final del Consumo de la API
 ![image](https://github.com/user-attachments/assets/4ba4eeb3-1825-4059-b7e4-26cad18f8813)
