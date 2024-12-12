@@ -1,6 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Pokemon } from '../components/pokemons-lista/pokemon.interface';
+import { Pokemon } from '../components/usuarios-lista/usuarios.interface';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
@@ -26,7 +26,7 @@ import { MatIcon } from '@angular/material/icon';
       <button mat-raised-button style="color:white; font-family: Cascadia Code; background-color: #cd7600; border-color: #cd7600; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" (click)="onClose()">Cerrar</button>
     </div>
   `,
-  styleUrls: ['pokemon-details.component.css'],
+  styleUrls: ['usuarios-details.component.css'],
 })
 export class PokemonDetailsComponent {
   constructor(

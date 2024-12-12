@@ -6,7 +6,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { Pokemon } from '../pokemons-lista/pokemon.interface';
+import { Pokemon } from '../usuarios-lista/usuarios.interface';
 
 @Component({
   selector: 'app-pokemon-edit',
@@ -56,7 +56,7 @@ import { Pokemon } from '../pokemons-lista/pokemon.interface';
     </div>
     </div>
   `,
-  styleUrls: ['pokemon-edit.component.css'],
+  styleUrls: ['comidas-edit.component.css'],
 })
 export class PokemonEditComponent {
   constructor(

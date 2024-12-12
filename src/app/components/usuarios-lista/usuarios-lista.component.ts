@@ -5,10 +5,10 @@ import { MatTableModule, MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatIcon } from '@angular/material/icon';
 import { CommonModule } from '@angular/common';
-import { Pokemon, PokemonApiResponse } from './pokemon.interface';
+import { Pokemon, PokemonApiResponse } from './usuarios.interface';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import { PokemonDetailsComponent } from '../../pokemon-details/pokemon-details.component';
-import { PokemonEditComponent } from '../pokemon-edit/pokemon-edit.component';
+import { PokemonDetailsComponent } from '../../comidas-details/comidas-details.component';
+import { PokemonEditComponent } from '../usuarios-edit/usuarios-edit.component';
 import { MatFormField } from '@angular/material/form-field';
 import { MatLabel } from '@angular/material/form-field';
 import { MatOption } from '@angular/material/core';
@@ -31,8 +31,8 @@ import { MatInput } from '@angular/material/input';
     MatSelect,
     MatInput,
   ],
-  templateUrl: './pokemon-lista.component.html',
-  styleUrls: ['pokemon-lista.component.css'],
+  templateUrl: './usuarios-lista.component.html',
+  styleUrls: ['usuarios-lista.component.css'],
 })
 export class UsuariosListaComponent implements OnInit {
   tiposPokemon: string[] = ['Todos']; // Se inicializa con "Todos"

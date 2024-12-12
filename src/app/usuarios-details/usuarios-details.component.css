@@ -1,0 +1,76 @@
+/* Encabezado del dialog */
+.dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);
+    color: #ffffff;
+    padding: 10px 20px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    font-family: Cascadia Code;
+  }
+  
+  .dialog-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-family: 'Cascadia Code', sans-serif;
+  }
+  
+  .dialog-header button {
+    background-color: #2a2d3e;
+    color: #cccccc;
+    padding-top: 0%;
+    height: 25px;
+  }
+  
+  .dialog-header button:hover {
+    color: #cccccc;
+  }
+  
+  /* Contenido del dialog */
+  .dialog-content {
+    margin: 2%;
+    border-radius: 4px;
+    background-color: #2a2d3e; /* Azul oscuro */
+    color: #d8d5d5;
+    padding: 20px;
+    font-family: 'Cascadia Code', sans-serif;
+    text-align: left;
+  }
+  
+  .dialog-content img {
+    display: block;
+    margin: 0 auto 15px;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  
+  /* Botones de acciones */
+  mat-dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    background-color: #2a2d3e;
+    padding: 15px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+  }
+  
+  mat-dialog-actions button {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    padding: 8px 15px;
+    border-radius: 4px;
+    color: #ffffff;
+  }
+  
+  mat-dialog-actions button {
+    background-color: #af2945; /* Verde para guardar */
+  }
+  
+  mat-dialog-actions button:hover {
+    background-color: #af2945;
+  }
+  

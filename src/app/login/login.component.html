@@ -1,25 +1,67 @@
-<div  class="container text-center mt-5" style="display: flex; align-items: center; justify-content: center;  height: 100vh;">
-  <mat-card class="example-card" style="display: flex; justify-content: center;  align-items: center; border-radius: 12px; background: linear-gradient(135deg, #dec604, #7a6200) " appearance="outlined">
-    <div mat-card-avatar class="example-header-image"></div>
-    <mat-card-header>    
-      <mat-card-title style="color: black; font-size: 16px; font-weight: bold; font-family: Cascadia Code; ">Bienvenido a Entrenador</mat-card-title>
-      <br><br>
-      <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
-    </mat-card-header>
-    <mat-card-content>
-      <mat-form-field style="width: 400px; margin-top: 6%;" class="llenarInformacion">
-        <mat-label style="font-family: Cascadia Code;" >Correo Electrónico o Usuario</mat-label>
-        <input style="font-family: Cascadia Code;" type="email" matInput placeholder="Ingresa Usuario" [(ngModel)]="log_gmail">
-      </mat-form-field>
-      <br>
-      <br>
-      <mat-form-field style="width: 400px; border-radius: 28px;" class="llenarInformacion">
-        <mat-label style="font-family: Cascadia Code;" >Contraseña</mat-label>
-        <input  style="font-family: Cascadia Code;" type="password" matInput placeholder="Ingresa Contraseña" [(ngModel)]="log_password">
-      </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions style="justify-content: center; padding-bottom: 1%;">
-      <button mat-flat-button style="background-color: #2A313C; color: white; font-style: normal; width: 200px;" (click)="ingresar()"> Acceder</button>
-    </mat-card-actions>
-  </mat-card>
+<div class="card-header"
+  style="border-color: #FFFFFF; background: linear-gradient(135deg, #193059, #193059, #4d516e, #3a4d69); color: white; display: flex; justify-content: flex-start; align-items: center; height: 54px; border-radius: 0px;">
+  <div class="login-message" style="color: white; font-size: 16px; margin-bottom: 1%; margin-left: 10px;">
+    Bienvenido Entrenador
   </div>
+</div>
+
+
+<div id="app" style="background-color: #f7f7f7;  margin: 0; padding: 0; " class="card-header">
+  <section class="section" style="padding: 65px">
+    <div class="container mt-6">
+      <div class="column">
+        <div class="row">
+          <div class="col-md-6" style="text-align: center;">
+            <div class="login-message" style="margin-bottom: 10px; font-size: 30px; font-family: 'Nunito', sans-serif;">
+              API FOOD</div>
+            <div class="card-header" style="border-color: #9BA8AB;  color: black; display: flex; align-items: center;">
+              <img clas="shadow-light rounded" src="assets/loginIMG.jpg" alt="logo" width="300"
+                style="border-radius: 12px; margin-left: 25%; margin-bottom: 2%;">
+              <br>
+              <br>
+            </div>
+            <br>
+            <h3
+              style="margin: 0; font-size: 20px; font-family: 'Courier New'; font-weight: normal; text-transform: none;">
+              Consumo API - COMIDAS (Peticiones)</h3>
+          </div>
+          <div class="col-md-6">
+            <div class="card card-dark" style="border-radius: 12px; ">
+              <div>
+                <p class="login-message">INICIO DE SESION</p>
+              </div>
+              <div style="display:flex; justify-content: center; ">
+                <img src="assets/userLogin.png" alt="logo" width="115">
+              </div>
+              <div class="card-body">
+                <form>
+                  <div class="form-group form-text">
+                    <!-- <label for="email">Usuario</label>-->
+                    <input style="border-color: #052781" aria-describedby="emailHelpBlock" id="email" 
+                      name="email" class="form-control form-text" placeholder="Correo" tabindex="1" autofocus  [(ngModel)]="log_gmail">
+                  </div>
+
+                  <div class="form-group form-text" style=" padding-top: 5%;">
+                    <!-- <label for="password" class="control-label">Password</label> -->
+                    <input style="border-color: #052781;" aria-describedby="passwordHelpBlock" id="password"
+                      type="password" class="form-control form-text" placeholder="Contraseña" name="password"
+                      tabindex="2" required  [(ngModel)]="log_password">
+                  </div>
+
+                  <div class="form-group form-text" style="padding-top: 8%;">
+                    <button type="submit" class="btn custom-btn btn-block btn-lg" tabindex="4">
+                      <div class="form-text" (click)="ingresar()" >Acceder</div>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<app-footer>
+</app-footer>

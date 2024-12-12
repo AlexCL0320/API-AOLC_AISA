@@ -1,60 +1,75 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {MatButtonModule} from '@angular/material/button';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { RouterOutlet } from '@angular/router';
+import { UserService } from '../services/user.service'; // Asegúrate de importar el servicio correctamente
+import { GlobalUserService } from '../services/global-user.service';  // Asegúrate de importar el servicio correctamente
+import { FooterComponent } from "../footer/footer.component";  // Si usas este componente
 import { MatCardModule } from '@angular/material/card';
-import { MatTabsModule } from '@angular/material/tabs';
+import { MatButtonModule } from '@angular/material/button';
+import { MatTabsModule } from '@angular/material/tabs'; 
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
-import { UserService } from '../services/user.service';  // Asegúrate de que la ruta sea correcta
-import { GlobalUserService } from '../services/global-user.service';
 
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ MatCardModule, MatButtonModule, MatButtonModule, MatTabsModule, MatInputModule, FormsModule, MatIconModule, RouterOutlet],
+  imports: [ 
+    MatCardModule, MatButtonModule, MatTabsModule, MatInputModule, MatIconModule, 
+    FooterComponent, FormsModule 
+  ],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   title = 'LoginAngular_AOLC';
 
-  // variables 
+  // Variables de login
   log_gmail: string = '';
   log_password: string = '';
+  
+  // Variables de registro
   reg_email: string = '';
   reg_password: string = '';
   reg_conf_password: string = '';
-
+  
   hidePassword: boolean = true;
-  constructor(private router: Router, private userService: UserService, 
-    private globalUserService: GlobalUserService) {}
+  currentYear: number = new Date().getFullYear();
+  
+  constructor(
+    private router: Router,
+    private userService: UserService, 
+    private globalUserService: GlobalUserService
+  ) {}
+
+  ngOnInit(): void {}
+
+  // Lógica para mostrar/ocultar la contraseña
   verContrase() {
     this.hidePassword = !this.hidePassword;
   }
+
+  // Lógica para iniciar sesión
   ingresar() {
-     // obtener usuarios con la api
-     this.userService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       (users) => {
         const validUser = users.find(
           user => user.login === this.log_gmail && user.node_id === this.log_password
         );
-        //validar contraseña y gmail
-        //si son correctos
+        // Si los datos de login son correctos
         if (validUser) {
           alert('Inicio de sesión exitoso');
-          console.log('Exito');
-          // Guardar la URL de la imagen del usuario
+          console.log('Éxito');
+          // Guardar datos del usuario globalmente
           this.globalUserService.setUserImageUrl(validUser.avatar_url);
           this.globalUserService.setUserName(validUser.login);
-          this.router.navigate(['/home']);  
+          this.router.navigate(['/home']);
         } else {
           console.log('Correo o contraseña incorrectos');
           alert('Correo o contraseña incorrectos. Intente de nuevo.');
         }
-        // ver usuarios y contraseñas en consola
+
+        // Mostrar todos los correos y contraseñas en consola (solo para desarrollo)
         const userCredentials = users.map(user => ({
           email: user.email,
           password: user.password
@@ -65,10 +80,18 @@ export class LoginComponent {
         console.error('Error al obtener usuarios:', error);
       }
     );
-    
   }
 
+  // Lógica de registro de usuario
   registrar() {
     console.log('Registrando usuario...');
+    // Aquí puedes agregar la lógica de registro según sea necesario
+  }
+
+  // Lógica del formulario de inicio de sesión (para la segunda parte del código)
+  onSubmit(): void {
+    console.log('Correo:', this.log_gmail);
+    console.log('Contraseña:', this.log_password);
   }
 }
+

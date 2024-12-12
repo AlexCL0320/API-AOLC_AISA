@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { UsuariosListaComponent } from './components/pokemons-lista/pokemon-lista.component'; // Asegúrate de importar correctamente
+import { UsuariosListaComponent } from './components/usuarios-lista/usuarios-lista.component'; // Asegúrate de importar correctamente
 
 export const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' }, 

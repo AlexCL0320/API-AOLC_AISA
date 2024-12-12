@@ -1,0 +1,49 @@
+
+table mat-row:nth-child(even) {
+    background-color: #c9c9c9; /* Color para las filas pares */
+  }
+  
+  table mat-row:nth-child(odd) {
+    background-color: #ffffff; /* Color para las filas impares */
+  }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #c9c9c9;
+    border-bottom: 1px solid black; /* Define el grosor y color de la tabla */
+    color: black;
+}
+
+th {
+
+    color: #c9c9c9;
+    font-family: Cascadia Code;
+    font-size: 17px;
+    padding: 8px;
+    /*border-right: 1px solid #212830;*/
+    text-align: left;
+    /*border: 1px solid black; /* Aplica un borde consistente a celdas */
+    border-radius: 1px;
+}
+
+td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid black; /* Aplica un borde consistente a celdas */
+    font-family: Cascadia Code;
+    font-size: 15px;
+}
+
+.btn{
+  height: 30px;
+  width: 100px;
+  border-radius: 8px;
+  background-color: black;
+  color: aliceblue;
+  font-family: Cascadia Code;
+}
+
+::ng-deep .filter-input .mat-form-field-flex {
+  background-color: white; /* Color de relleno blanco */
+  border-radius: 4px;      /* Opcional: bordes redondeados */
+}

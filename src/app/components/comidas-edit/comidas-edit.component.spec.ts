@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokemonEditComponent } from './pokemon-edit.component';
+import { PokemonEditComponent } from './comidas-edit.component';
 
 describe('PokemonEditComponent', () => {
   let component: PokemonEditComponent;
