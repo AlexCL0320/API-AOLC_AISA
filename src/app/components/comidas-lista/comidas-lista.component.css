@@ -47,3 +47,21 @@ td {
   background-color: white; /* Color de relleno blanco */
   border-radius: 4px;      /* Opcional: bordes redondeados */
 }
+
+.content{
+  margin-left: 3%; 
+  background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);
+  color: mintcream;
+  border-radius: 10px; 
+  padding-top: 3%;
+  padding-left: 5%;
+  margin-bottom: 5%; 
+  margin-right: 2%; 
+  margin-top: 2%; 
+  justify-content: center;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+  border: black;
+  min-height: calc(100vh - 50px); /* Ajusta 50px al tamaño del footer */
+  padding-bottom: 50px; /* Evita que el contenido sobrepase el footer */
+
+}

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class PokemonService {
-  private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1302'; // Obtenemos los primeros 50 Pokémon.
+  private apiUrl ="" /*'https://pokeapi.co/api/v2/pokemon?limit=1302'; // Obtenemos los primeros 50 Pokémon.*/
 
   constructor(private http: HttpClient) {}
 

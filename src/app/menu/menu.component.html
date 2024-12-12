@@ -2,15 +2,15 @@
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="home()">
       <mat-icon>home</mat-icon> <!-- Cambiado a "home" -->
       <span>Inicio</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="usuarios()">
       <mat-icon>contact_support</mat-icon> <!-- Cambiado a "mail" -->
       <span>Usuarios</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="comidas()">
       <mat-icon>contact_support</mat-icon> <!-- Cambiado a "mail" -->
       <span>Comidas</span>
     </button>

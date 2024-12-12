@@ -14,6 +14,8 @@ import { MatLabel } from '@angular/material/form-field';
 import { MatOption } from '@angular/material/core';
 import { MatSelect } from '@angular/material/select';
 import { MatInput } from '@angular/material/input';
+import { HeaderComponent } from '../../header/header.component';
+import { FooterComponent } from '../../footer/footer.component';
 
 @Component({
   selector: 'app-usuarios-lista',
@@ -30,6 +32,8 @@ import { MatInput } from '@angular/material/input';
     MatOption,
     MatSelect,
     MatInput,
+    FooterComponent,
+    HeaderComponent
   ],
   templateUrl: './usuarios-lista.component.html',
   styleUrls: ['usuarios-lista.component.css'],

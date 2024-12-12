@@ -14,7 +14,21 @@ import { Router, RouterModule } from '@angular/router';
 export class MenuComponent {
   constructor(private router: Router) {}
 
+  usuarios(): void {
+    this.router.navigate(['/usuarios']);
+  }
+
+  home(): void {
+    this.router.navigate(['/home']);
+  }
+
+  comidas(): void {
+    this.router.navigate(['/comidas']);
+  }
+
   login(): void {
     this.router.navigate(['/login']);
   }
+
+  
 }
