@@ -85,7 +85,7 @@ export class UsuariosListaComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.action === 'save') {
-        console.log('Editar Usuario:', result.data);
+        console.log('Los datos del usuario enviado son:', result.data);
         this.userService.editUser(result.data.id, result.data).subscribe(
           (response) => {
             // Si la actualización fue exitosa, buscamos el índice y lo actualizamos

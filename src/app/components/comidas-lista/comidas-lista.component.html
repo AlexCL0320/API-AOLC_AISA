@@ -60,7 +60,7 @@
 
           <!-- Habilidades -->
           <ng-container matColumnDef="ingredientes">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #193059;">Ingredientes</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #193059; width: 10%;">Ingredientes</th>
             <td mat-cell *matCellDef="let comida"
               [ngStyle]="{ 'background-color': comida.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ comida.ingredientes}}
@@ -78,7 +78,7 @@
 
           <!-- Precio -->
           <ng-container matColumnDef="precio">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #193059;">Precio</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #193059;">Precio ($)</th>
             <td mat-cell *matCellDef="let comida"
               [ngStyle]="{ 'background-color': comida.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ comida.precio }}
@@ -102,7 +102,7 @@
               [ngStyle]="{ 'background-color': comida.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               <button mat-flat-button
                 style="background-color: #2A313C; color: white; font-style: normal; width: 80%; height: 35px; border-radius: 13px;"
-                >Ver</button>
+                (click)="verDetalles(comida)">Ver</button>
             </td>
           </ng-container>
 
@@ -113,12 +113,12 @@
               [ngStyle]="{ 'background-color': comida.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               <button mat-icon-button color="primary"
                 style="margin-left: 5%; background-color: #57995a; border-radius: 8px;"
-                >
+                (click)="editarComida(comida)">
                 <mat-icon style="color: white; background-color: #57995a;">edit</mat-icon>
               </button>
               <button mat-icon-button color="warn"
                 style="margin-left: 5%; background-color: #af2945; border-radius: 8px;"
-                >
+                (click)="eliminarComida(comida)">
                 <mat-icon style="color: white; background-color: #af2945;">delete</mat-icon>
               </button>
             </td>

@@ -16,6 +16,7 @@ import { MatSelect } from '@angular/material/select';
 import { MatInput } from '@angular/material/input';
 import { HeaderComponent } from '../../header/header.component';
 import { FooterComponent } from '../../footer/footer.component';
+import { MatSortModule } from '@angular/material/sort';
 import { MatSort } from '@angular/material/sort';
 
 @Component({
@@ -24,6 +25,7 @@ import { MatSort } from '@angular/material/sort';
   imports: [
     MatCardModule,
     MatTableModule,
+    MatSortModule,
     MatPaginatorModule,
     CommonModule,
     MatIcon,
@@ -41,7 +43,6 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['comidas-lista.component.css'],
 })
 export class ComidasListaComponent implements OnInit {
-  // Definir displayedColumns aquí
   displayedColumns: string[] = [
     'id',
     'nombre',
@@ -55,8 +56,9 @@ export class ComidasListaComponent implements OnInit {
   comidas: Comida[] = [];
   dataSource!: MatTableDataSource<Comida>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private comidaService: ComidaService) {}
+  constructor(private comidaService: ComidaService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.dataSource = new MatTableDataSource();
@@ -66,79 +68,90 @@ export class ComidasListaComponent implements OnInit {
   loadComidas() {
     this.comidaService.getComidas().subscribe(
       (response) => {
-        console.log('Comidas obtenidas:', response);
-        this.comidas = response.data;
-        this.dataSource.data = this.comidas;
-        console.log('Datos recibidos:', this.dataSource);
-        this.dataSource.paginator = this.paginator;
+        if (Array.isArray(response)) {
+          this.comidas = response;
+        } else if (response.data && Array.isArray(response.data)) {
+          this.comidas = response.data;
+        } else {
+          console.warn('Estructura inesperada en la respuesta del servicio');
+          this.comidas = [];
+        }
+        this.dataSource = new MatTableDataSource(this.comidas);
+        if (this.paginator && this.sort) {
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+        }
       },
-
       (error) => {
         console.error('Error al obtener las comidas:', error);
       }
     );
   }
 
-  verComida(id: number) {
-    this.comidaService.getComidaById(id).subscribe(
-      (response) => {
-        console.log('Detalles de la comida:', response);
-      },
-      (error) => {
-        console.error('Error al obtener la comida:', error);
-      }
-    );
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
-  crearComida() {
-    const nuevaComida = {
-      nombre: 'Pizza Mexicana',
-      ingredientes: 'Chorizo, jalapeños, maíz, queso mozzarella',
-      categoria: 'Pizza',
-      precio: '12.99',
-      detalles: '',
-    };
-
-    this.comidaService.createComida(nuevaComida).subscribe(
-      (response) => {
-        console.log('Comida creada exitosamente:', response);
-        this.loadComidas();
-      },
-      (error) => {
-        console.error('Error al crear la comida:', error);
-      }
-    );
+  /**
+   * Método para mostrar detalles de la comida
+   */
+  verDetalles(comida: Comida): void {
+    this.dialog.open(ComidaDetailsComponent, {
+      data: comida,
+      width: '400px',
+    });
   }
 
-  actualizarComida(id: number) {
-    const comidaActualizada = {
-      nombre: 'Pizza Mexicana Actualizada',
-      ingredientes: 'Chorizo, jalapeños, maíz, queso mozzarella, cebolla',
-      categoria: 'Pizza',
-      precio: '13.99',
-      detalles: 'https://example.com/image-updated.jpg',
-    };
+  /**
+   * Método para editar la comida
+   */
+  editarComida(comida: Comida): void {
+    const dialogRef = this.dialog.open(ComidaEditComponent, {
+      data: { ...comida }, // Se clona la comida para no modificar el original
+      width: '400px',
+    });
 
-    this.comidaService.updateComida(id, comidaActualizada).subscribe(
-      (response) => {
-        console.log('Comida actualizada exitosamente:', response);
-        this.loadComidas();
-      },
-      (error) => {
-        console.error('Error al actualizar la comida:', error);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result?.action === 'save') {
+        this.comidaService.updateComida(result.data.id, result.data).subscribe(
+          (response) => {
+            const index = this.dataSource.data.findIndex(
+              (c) => c.id === result.data.id
+            );
+            if (index >= 0) {
+              this.dataSource.data[index] = result.data;
+              this.dataSource.data = [...this.dataSource.data]; // Se actualiza la vista de la tabla
+            }
+          },
+          (error) => {
+            console.error('Error al editar la comida:', error);
+          }
+        );
+      } else if (result?.action === 'delete') {
+        this.eliminarComida(result.data);
       }
-    );
+    });
   }
 
-  eliminarComida(id: number) {
-    this.comidaService.deleteComida(id).subscribe(
-      (response) => {
-        console.log('Comida eliminada exitosamente:', response);
-        this.loadComidas();
-      },
-      (error) => {
-        console.error('Error al eliminar la comida:', error);
-      }
+  /**
+   * Método para eliminar la comida
+   */
+  eliminarComida(comida: Comida): void {
+    const confirmacion = window.confirm(
+      `¿Estás seguro de que deseas eliminar ${comida.nombre}?`
     );
+    if (confirmacion) {
+      this.comidaService.deleteComida(comida.id).subscribe(
+        () => {
+          this.dataSource.data = this.dataSource.data.filter(
+            (c) => c.id !== comida.id
+          );
+        },
+        (error) => {
+          console.error('Error al eliminar la comida:', error);
+        }
+      );
+    }
   }
 }
