@@ -1,15 +1,13 @@
 <div style=" background-color: #212830">
   <app-header></app-header>
+  <mat-card-header
+  style="  margin-top: 3%; margin-left: 3%; justify-content: center; width: 94%;   background-color: #3e5f8a; border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
+  <mat-card-title style="padding-bottom: 10px; font-family: Cascadia Code; color: white">
+    Platillos
+  </mat-card-title>
+</mat-card-header>
   <div style="width: 89%;" class="content">
-
     <mat-card style="width: 95%; background-color: transparent">
-      <mat-card-header
-        style="margin-bottom: 2%; background-color: #3e5f8a; border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
-        <mat-card-title style="padding: 2%; font-family: Cascadia Code;">
-          Platillos 
-        </mat-card-title>
-      </mat-card-header>
-
       <!-- Filtros -->
       <mat-card-content style="margin-bottom: -2%;">
         <div style=" display: flex; align-items: left; justify-content: left; gap: 1rem; margin-bottom: 1rem;">
@@ -29,7 +27,7 @@
             class="filter-input llenarInformacion">
             <mat-label>Buscar</mat-label>
             <input matInput placeholder="Eje. Pizza Margarita" (input)="buscarComida($event)" id="idBusqueda">
-          </mat-form-field>
+            </mat-form-field>
 
         </div>
 

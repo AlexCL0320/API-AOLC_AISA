@@ -1,21 +1,32 @@
-<div style=" background-color: #dee0db">
+<div style="background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);">
   <app-header></app-header>
 
   <mat-card-header
-    style="  margin-top: 3%; margin-left: 3%; justify-content: center; width: 94%;   background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b); border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
+    style="  margin-top: 3%; margin-left: 3%; justify-content: center; width: 94%;  background: linear-gradient(135deg,#98afa7, #4e7e89,  #4e8977); border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
     <mat-card-title style="padding-bottom: 10px; font-family: Cascadia Code; color: white">
       Usuarios
     </mat-card-title>
   </mat-card-header>
 
   <div style="width: 94%;" class="content">
-    
     <mat-card style="width: 95%; background-color: transparent">
+
+      <!-- Filtros -->
+      <mat-card-content class="filter-section" style="background-color: #587d7f82;">
+        <div class="filter-container">
+          <mat-form-field class="filter-input" appearance="outline">
+            <mat-label>Buscar</mat-label>
+            <input matInput placeholder="nombre de usuario" id="idBusqueda" (input)="buscarUsuario($event)" type="text" >
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+      
+
       <mat-card-content style="background-color: #c9c9c9; border-radius: 4px; padding-top: 2%;">
         <table mat-table [dataSource]="dataSource" matSort>
           <!-- ID -->
           <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #586352;">ID</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #356f5f;">ID</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ usuario.id }}
@@ -24,7 +35,7 @@
 
           <!-- Nombre -->
           <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #6e786d;">Nombre</th>
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #4e8878;">Nombre</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ usuario.nombre }}
@@ -33,7 +44,7 @@
 
           <!-- Apellido Paterno -->
           <ng-container matColumnDef="apellidoP">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #586352;">Apellido Paterno</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #356f5f;">Apellido Paterno</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ usuario.apellidoP }}
@@ -42,7 +53,7 @@
 
           <!-- Apellido Materno -->
           <ng-container matColumnDef="apellidoM">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #6e786d;">Apellido Materno</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #4e8878;">Apellido Materno</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ usuario.apellidoM }}
@@ -51,7 +62,7 @@
 
           <!-- Correo -->
           <ng-container matColumnDef="correo">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #586352;">Correo</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #356f5f;">Correo</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               {{ usuario.correo }}
@@ -60,7 +71,7 @@
 
           <!-- Foto -->
           <ng-container matColumnDef="foto">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #6e786d;">Foto</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #4e8878;">Foto</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }"
               style="display: flex; justify-content: center; align-items: center; height: 80%;">
@@ -71,12 +82,13 @@
 
           <!-- Detalles -->
           <ng-container matColumnDef="detalles">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #586352">Detalles</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #356f5f">Detalles</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               <div style="display: flex; justify-content: center; align-items: center; height: 80%;">
                 <button mat-flat-button
-                  style="background-color: #2A313C; color: white; font-style: normal; width: 80%; height: 35px; border-radius: 13px;"  (click)="verDetalles(usuario)">
+                  style="background-color: #2A313C; color: white; font-style: normal; width: 80%; height: 35px; border-radius: 13px;"
+                  (click)="verDetalles(usuario)">
                   Ver
                 </button>
               </div>
@@ -86,13 +98,13 @@
 
           <!-- Acciones -->
           <ng-container matColumnDef="acciones">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #6e786d;">Acciones</th>
+            <th mat-header-cell *matHeaderCellDef style="background-color: #4e8878;">Acciones</th>
             <td mat-cell *matCellDef="let usuario"
               [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
               <button mat-icon-button color="primary"
-                style="margin-left: 5%; background-color: #cbd5b2; border-radius: 8px;"
+                style="margin-left: 5%; background-color: #356f5f; border-radius: 8px;"
                 (click)="editarUsuario(usuario)">
-                <mat-icon style="color: #021a22;">edit</mat-icon>
+                <mat-icon style="color: white;">edit</mat-icon>
               </button>
               <button mat-icon-button color="warn"
                 style="margin-left: 5%; background-color: #425953; border-radius: 8px;"
@@ -107,7 +119,7 @@
         </table>
 
         <mat-paginator
-          style="background-color: #6e786d; color: white; border-radius: 8px; font-size: 14px; margin-top: 2%;"
+          style="background: linear-gradient(135deg,#98afa7, #4e7e89,  #4e8977); color: white; border-radius: 8px; font-size: 14px; margin-top: 2%;"
           [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
       </mat-card-content>
     </mat-card>

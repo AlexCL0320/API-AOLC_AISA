@@ -13,6 +13,8 @@ import { MatLabel } from '@angular/material/form-field';
 import { UserDetailsComponent } from '../../usuarios-details/usuarios-details.component';
 import { UserEditComponent } from '../usuarios-edit/usuarios-edit.component';
 import { UsuarioInterface, Usuario } from './usuarios.interface';
+import { MatInputModule } from '@angular/material/input';
+
 @Component({
   selector: 'app-usuarios-lista',
   standalone: true,
@@ -27,6 +29,7 @@ import { UsuarioInterface, Usuario } from './usuarios.interface';
     FooterComponent,
     MatFormField,
     MatLabel,
+    MatInputModule
   ],
   templateUrl: './usuarios-lista.component.html',
   styleUrls: ['usuarios-lista.component.css'],
@@ -42,7 +45,12 @@ export class UsuariosListaComponent implements OnInit {
     'detalles',
     'acciones',
   ];
-  dataSource = new MatTableDataSource<any>([]);
+
+  // Esta propiedad almacenará los usuarios originales
+  usuariosOriginales: Usuario[] = [];
+
+  // Esta propiedad es para la fuente de datos de la tabla
+  dataSource = new MatTableDataSource<Usuario>([]);
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
@@ -51,14 +59,16 @@ export class UsuariosListaComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUsers().subscribe(
       (users) => {
-        this.dataSource.data = users.map((user: any) => ({
+        // Guardamos los usuarios originales para poder restaurarlos más tarde
+        this.usuariosOriginales = users.map((user: any) => ({
           id: user.id,
           nombre: user.nombre,
           apellidoP: user.apellidoP,
           apellidoM: user.apellidoM,
           correo: user.correo,
-          foto: user.foto,
+          foto: user.foto,password: '',
         }));
+        this.dataSource.data = [...this.usuariosOriginales];
         this.dataSource.paginator = this.paginator;
       },
       (error) => {
@@ -75,6 +85,7 @@ export class UsuariosListaComponent implements OnInit {
     });
   }
 
+  // Método para editar un usuario
   editarUsuario(usuario: Usuario): void {
     console.log('Editar Usuario:', usuario);
   
@@ -85,7 +96,7 @@ export class UsuariosListaComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result) => {
       if (result?.action === 'save') {
-        console.log('Los datos del usuario enviado son:', result.data);
+        console.log('Los datos del usuario enviados son:', result.data);
         this.userService.editUser(result.data.id, result.data).subscribe(
           (response) => {
             // Si la actualización fue exitosa, buscamos el índice y lo actualizamos
@@ -107,9 +118,8 @@ export class UsuariosListaComponent implements OnInit {
       }
     });
   }
-  
-  
 
+  // Método para eliminar un usuario
   eliminarUsuario(usuario: Usuario): void {
     const confirmacion = window.confirm(
       `¿Estás seguro de que deseas eliminar a ${usuario.nombre}?`
@@ -128,6 +138,27 @@ export class UsuariosListaComponent implements OnInit {
       );
     }
   }
-  
-  
+
+  // Método de búsqueda
+  buscarUsuario(event: Event): void {
+    const valorBusqueda = (event.target as HTMLInputElement).value.trim().toLowerCase();
+
+    if (valorBusqueda === '') {
+      // Si el campo de búsqueda está vacío, restauramos los datos originales
+      this.dataSource.data = [...this.usuariosOriginales];
+    } else {
+      // Filtrar los usuarios por nombre, apellido y correo
+      this.dataSource.data = this.usuariosOriginales.filter((usuario: Usuario) =>
+        usuario.nombre.toLowerCase().includes(valorBusqueda) ||
+        usuario.apellidoP.toLowerCase().includes(valorBusqueda) ||
+        usuario.apellidoM.toLowerCase().includes(valorBusqueda) ||
+        usuario.correo.toLowerCase().includes(valorBusqueda)
+      );
+    }
+
+    // Si hay un paginator, reiniciamos a la primera página
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+  }
 }
