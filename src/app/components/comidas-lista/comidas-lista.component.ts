@@ -154,4 +154,54 @@ export class ComidasListaComponent implements OnInit {
       );
     }
   }
+
+  /**
+   * Método para filtrar comidas por categoría
+   */
+  filtrarPorCategoria(categoria: string): void {
+    if (categoria === 'Limpiar') {
+      this.dataSource.data = this.comidas;
+    } else {
+      this.dataSource.data = this.comidas.filter(
+        (comida) => comida.categoria.toLowerCase() === categoria.toLowerCase()
+      );
+    }
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  /**
+   * Método para buscar comida por nombre
+   */
+  buscarComida(event: Event): void {
+    const valorBusqueda = (event.target as HTMLInputElement).value.trim().toLowerCase();
+    
+    this.dataSource.data = this.comidas.filter(comida => 
+      comida.nombre.toLowerCase().includes(valorBusqueda) || 
+      String(comida.precio).toLowerCase().includes(valorBusqueda)
+    );
+    
+    if (this.paginator) {
+      this.paginator.firstPage();
+    }
+  }
+
+  /**
+ * Método para limpiar los filtros y la barra de búsqueda
+ */
+limpiarFiltros(): void {
+  // Restaurar la tabla con todos los datos
+  this.dataSource.data = this.comidas;
+  
+  // Reiniciar la paginación
+  if (this.paginator) {
+    this.paginator.firstPage();
+  }
+
+  // Limpiar el campo de búsqueda (opcional)
+  const inputBusqueda = document.getElementById('idBusqueda') as HTMLInputElement;
+  if (inputBusqueda) {
+    inputBusqueda.value = '';
+  }
+}
 }

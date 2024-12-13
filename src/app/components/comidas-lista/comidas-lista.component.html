@@ -14,25 +14,26 @@
       <mat-card-content style="margin-bottom: -2%;">
         <div style=" display: flex; align-items: left; justify-content: left; gap: 1rem; margin-bottom: 1rem;">
           <button mat-raised-button class="btn" style="background-color: #af2945;"
-            >Limpiar</button>
+          (click)="limpiarFiltros()">Limpiar</button>
         </div>
         <p style="font-family: Cascadia Code;">Filtros</p>
         <div style=" display: flex; align-items: left; justify-content: left; gap: 1rem; margin-bottom: 1rem;">
-          <button mat-raised-button class="btn" style="background-color: #2e4766;"
+          <button mat-raised-button class="btn" style="background-color: #2e4766;" (click)="filtrarPorCategoria('Pizza')"
             >Pizza</button>
-          <button mat-raised-button class="btn" style="background-color: #57995a;"
+          <button mat-raised-button class="btn" style="background-color: #57995a;" (click)="filtrarPorCategoria('Taco')"
             >Tacos</button>
-          <button mat-raised-button class="btn" style="background-color: #848b2d;">
+          <button mat-raised-button class="btn" style="background-color: #848b2d;" (click)="filtrarPorCategoria('Postre')"> 
             Postre</button>
+
+            <mat-form-field style="gap: 1rem; width: 30%; margin-top: -1rem; margin-left: 50%;"
+            class="filter-input llenarInformacion">
+            <mat-label>Buscar</mat-label>
+            <input matInput placeholder="Eje. Pizza Margarita" (input)="buscarComida($event)" id="idBusqueda">
+          </mat-form-field>
+
         </div>
 
         <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-
-          <mat-form-field style="gap: 1rem; width: 30%; margin-top: 1rem; margin-left: 0%;"
-            class="filter-input llenarInformacion">
-            <mat-label>Buscar</mat-label>
-            <input matInput placeholder="Eje. Dialga" id="idBusqueda">
-          </mat-form-field>
         </div>
 
       </mat-card-content>
