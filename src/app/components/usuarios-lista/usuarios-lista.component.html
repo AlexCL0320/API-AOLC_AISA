@@ -1,112 +1,116 @@
-<div style=" background-color: #212830">
+<div style=" background-color: #dee0db">
   <app-header></app-header>
-  <div style="width: 89%;" class="content">
 
-      <mat-card style="width: 95%; background-color: transparent">
-        <mat-card-header
-          style="margin-bottom: 2%; background-color: #83525c; border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
-          <mat-card-title style="padding: 2%; font-family: Cascadia Code;">
-            Usuarios
-          </mat-card-title>
-        </mat-card-header>
+  <mat-card-header
+    style="  margin-top: 3%; margin-left: 3%; justify-content: center; width: 94%;   background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b); border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
+    <mat-card-title style="padding-bottom: 10px; font-family: Cascadia Code; color: white">
+      Usuarios
+    </mat-card-title>
+  </mat-card-header>
+
+  <div style="width: 94%;" class="content">
+    
+    <mat-card style="width: 95%; background-color: transparent">
+      <mat-card-content style="background-color: #c9c9c9; border-radius: 4px; padding-top: 2%;">
+        <table mat-table [dataSource]="dataSource" matSort>
+          <!-- ID -->
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #586352;">ID</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              {{ usuario.id }}
+            </td>
+          </ng-container>
+
+          <!-- Nombre -->
+          <ng-container matColumnDef="nombre">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #6e786d;">Nombre</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              {{ usuario.nombre }}
+            </td>
+          </ng-container>
+
+          <!-- Apellido Paterno -->
+          <ng-container matColumnDef="apellidoP">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #586352;">Apellido Paterno</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              {{ usuario.apellidoP }}
+            </td>
+          </ng-container>
+
+          <!-- Apellido Materno -->
+          <ng-container matColumnDef="apellidoM">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #6e786d;">Apellido Materno</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              {{ usuario.apellidoM }}
+            </td>
+          </ng-container>
+
+          <!-- Correo -->
+          <ng-container matColumnDef="correo">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #586352;">Correo</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              {{ usuario.correo }}
+            </td>
+          </ng-container>
+
+          <!-- Foto -->
+          <ng-container matColumnDef="foto">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #6e786d;">Foto</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }"
+              style="display: flex; justify-content: center; align-items: center; height: 80%;">
+              <img [src]="usuario.foto" alt="Foto de usuario" style="width: 50px; height: 50px; border-radius: 50%;">
+            </td>
+          </ng-container>
 
 
-        <mat-card-content style="background-color: #c9c9c9; border-radius: 4px; padding-top: 2%;">
-          <table mat-table [dataSource]="dataSource" matSort>
-
-            <!-- ID -->
-            <ng-container matColumnDef="id">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #471529;">ID</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                {{ pokemon.id }}
-              </td>
-            </ng-container>
-
-            <!-- Nombre -->
-            <ng-container matColumnDef="nombre">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #602e42;">Nombre</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                {{ pokemon.nombre }}
-              </td>
-            </ng-container>
-
-            <!-- Habilidades -->
-            <ng-container matColumnDef="habilidades">
-              <th mat-header-cell *matHeaderCellDef style="background-color: #471529;">Apellido Paterno</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                {{ pokemon.habilidades }}
-              </td>
-            </ng-container>
-
-            <!-- Tipo -->
-            <ng-container matColumnDef="tipo">
-              <th mat-header-cell *matHeaderCellDef style="background-color: #602e42;">Apellido Materno</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                {{ pokemon.tipo }}
-              </td>
-            </ng-container>
-
-            <!-- Generacion -->
-            <ng-container matColumnDef="region">
-              <th mat-header-cell *matHeaderCellDef style="background-color: #471529;">Correo</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                {{ pokemon.generacion }}
-              </td>
-            </ng-container>
-
-            <!-- Imagen -->
-            <ng-container matColumnDef="imagen">
-              <th mat-header-cell *matHeaderCellDef style="background-color: #602e42;">Password</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                <img [src]="pokemon.imagen" alt="Imagen de Pokémon"
-                  style="width: 100px; height: 100px; border-radius: 50%;">
-              </td>
-            </ng-container>
-
-            <!-- Detalles -->
-            <ng-container matColumnDef="detalles">
-              <th mat-header-cell *matHeaderCellDef style="background-color: #471529;">Foto</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+          <!-- Detalles -->
+          <ng-container matColumnDef="detalles">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #586352">Detalles</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              <div style="display: flex; justify-content: center; align-items: center; height: 80%;">
                 <button mat-flat-button
-                  style="background-color: #2A313C; color: white; font-style: normal; width: 80%; height: 35px; border-radius: 13px;"
-                  (click)="verDetalles(pokemon)">Ver</button>
-              </td>
-            </ng-container>
-
-            <!-- Acciones -->
-            <ng-container matColumnDef="acciones" style="display: flex;  justify-content: center; align-items: center;">
-              <th mat-header-cell *matHeaderCellDef style="background-color: #602e42;">Acciones</th>
-              <td mat-cell *matCellDef="let pokemon"
-                [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-                <button mat-icon-button color="primary"
-                  style="margin-left: 5%; background-color: #57995a; border-radius: 8px;"
-                  (click)="editarPokemon(pokemon)">
-                  <mat-icon style="color: white; background-color: #57995a;">edit</mat-icon>
+                  style="background-color: #2A313C; color: white; font-style: normal; width: 80%; height: 35px; border-radius: 13px;"  (click)="verDetalles(usuario)">
+                  Ver
                 </button>
-                <button mat-icon-button color="warn"
-                  style="margin-left: 5%; background-color: #af2945; border-radius: 8px;"
-                  (click)="eliminarPokemon(pokemon)">
-                  <mat-icon style="color: white; background-color: #af2945;">delete</mat-icon>
-                </button>
-              </td>
-            </ng-container>
+              </div>
+            </td>
+          </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-          </table>
 
-          <mat-paginator
-            style="background-color: #2e4766; color: white; border-radius: 8px; font-size: 14px; margin-top: 2%;"
-            [pageSizeOptions]="[ 20, 50, 100]" showFirstLastButtons></mat-paginator>
-        </mat-card-content>
-      </mat-card>
+          <!-- Acciones -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef style="background-color: #6e786d;">Acciones</th>
+            <td mat-cell *matCellDef="let usuario"
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              <button mat-icon-button color="primary"
+                style="margin-left: 5%; background-color: #cbd5b2; border-radius: 8px;"
+                (click)="editarUsuario(usuario)">
+                <mat-icon style="color: #021a22;">edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn"
+                style="margin-left: 5%; background-color: #425953; border-radius: 8px;"
+                (click)="eliminarUsuario(usuario)">
+                <mat-icon style="color: white;">delete</mat-icon>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+
+        <mat-paginator
+          style="background-color: #6e786d; color: white; border-radius: 8px; font-size: 14px; margin-top: 2%;"
+          [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+      </mat-card-content>
+    </mat-card>
 
   </div>
   <app-footer></app-footer>

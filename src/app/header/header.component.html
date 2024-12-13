@@ -1,21 +1,22 @@
-<mat-card appearance="outlined" class="header">
-    <mat-card-content>
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px;">
-    <!-- Imagen y texto alineados a la izquierda -->
-    <div style="display: flex; align-items: center;">
-       <!-- <a href="https://github.com/AlexCL0320" target="_blank" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
-            <img src="/assets/head.png" alt="GitHub Logo" height="60" style="vertical-align: middle; margin-right: 8px;">
-            {{userName}}
-        </a>-->
-    </div>
+<mat-card appearance="outlined" class="header" style="height: 70px;">
+    <mat-card-content style="margin-top: -20px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 0px;">
+            <!-- Menú alineado a la derecha -->
+            <div>
+                <div>
+                    <app-menu style="padding-right: 0px;"></app-menu>
+                    <img [src]="userImageUrl" alt="User" width="70" height="70"
+                    style="vertical-align: middle; margin-right: 8px; padding: 10px; margin-top: -15px; border-radius: 50%;">
+                </div>
+            </div>
+           <!-- <div style="display: flex; color: #2A313C; align-items: center; margin-left: -8%;font-size: 28px; font-family: 'Nunito', monospace;">
+                Consumo REQUEST API Food
+            </div> -->
+             <!-- Imagen y texto alineados a la izquierda 
+             <div style="display: flex; align-items: center; padding: 7px;">
+                <img src="/assets/imagenApoyo.png" height="60" style="vertical-align: middle;"> 
+            </div>-->
 
-    <!-- Menú alineado a la derecha -->
-    <div>
-        <div>
-            <img [src]="userImageUrl" alt="User" width="55" height="55" style="vertical-align: middle; margin-right: 8px; border-radius: 50%;">
-            <app-menu></app-menu>
         </div>
-    </div>
-</div>
     </mat-card-content>
 </mat-card>

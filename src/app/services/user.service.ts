@@ -3,13 +3,25 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'https://api.github.com/users';
+  private apiUrl = 'http://127.0.0.1:8000/api'; // Cambia esto a tu URL de API
+
   constructor(private http: HttpClient) {}
 
+  // Eliminar usuario
+  deleteUser(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/usuarios/${id}`);
+  }
+
+  // Editar usuario
+  editUser(id: number, user: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/usuarios/${id}`, user);
+  }
+
+  // Obtener usuarios
   getUsers(): Observable<any[]> {
-    return this.http.get<any[]>(this.apiUrl);
+    return this.http.get<any[]>(`${this.apiUrl}/usuarios`);
   }
 }

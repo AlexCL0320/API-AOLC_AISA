@@ -54,15 +54,15 @@ export class LoginComponent implements OnInit {
     this.userService.getUsers().subscribe(
       (users) => {
         const validUser = users.find(
-          user => user.login === this.log_gmail && user.node_id === this.log_password
+          user => user.correo === this.log_gmail && user.password === this.log_password
         );
         // Si los datos de login son correctos
         if (validUser) {
           alert('Inicio de sesión exitoso');
           console.log('Éxito');
           // Guardar datos del usuario globalmente
-          this.globalUserService.setUserImageUrl(validUser.avatar_url);
-          this.globalUserService.setUserName(validUser.login);
+          this.globalUserService.setUserImageUrl(validUser.foto);
+          this.globalUserService.setUserName(validUser.correo);
           this.router.navigate(['/home']);
         } else {
           console.log('Correo o contraseña incorrectos');

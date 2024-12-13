@@ -1,17 +1,14 @@
-export interface Pokemon {
-    id: number;
-    nombre: string;
-    habilidades: string;
-    tipo: string;
-    url: string;
-    imagen?: string; // Opcional porque puede que no exista inicialmente
-    generacion: string;
-  }
-  
-  export interface PokemonApiResponse {
-    results: {
-      name: string;
-      url: string;
-    }[];
-  }
-  
+export interface Comida {
+  id: number;
+  nombre: string;
+  ingredientes: string;
+  categoria: string;
+  precio: string;
+  detalles: string;
+  created_at?: string;
+  updated_at?: string;
+}
+
+export interface ComidaResponse {
+  data: Comida[];
+}

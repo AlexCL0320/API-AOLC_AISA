@@ -1,9 +1,11 @@
 .header{
     color:azure;
     background: linear-gradient(135deg, #193059, #193059, #4d516e, #3a4d69);
+    /*background: linear-gradient(135deg, #98afa7, #4e8977, #4e7e89, #98afa7);*/
+    /*background: linear-gradient(135deg, #193059, #4e7089, #049c73, #98afa7);*/
     border-radius: -10px;
     font-size: 12px;
-    margin-top: -0.5%;
+    margin-top: 0%;
     padding-bottom: -4%;
 }
 

@@ -6,10 +6,10 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { MatIcon } from '@angular/material/icon';
-import { Pokemon } from '../usuarios-lista/usuarios.interface';
+import { Usuario } from '../usuarios-lista/usuarios.interface';
 
 @Component({
-  selector: 'app-pokemon-edit',
+  selector: 'app-user-edit',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -20,48 +20,64 @@ import { Pokemon } from '../usuarios-lista/usuarios.interface';
     MatIcon,
   ],
   template: `
-  <div style="border-radius: 12px;">
-    <div class="dialog-header">
-      <h1>Editar Pokémon: {{ data.nombre }}</h1>
-      <button mat-icon-button mat-dialog-close>
-        <mat-icon>close</mat-icon>
-      </button>
-    </div>
-    <div mat-dialog-content>
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label style="font-family: Cascadia Code;">Nombre</mat-label>
-        <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.nombre" />
-      </mat-form-field>
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label style="font-family: Cascadia Code;" >Habilidades</mat-label>
-        <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.habilidades" />
-      </mat-form-field>
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label style="font-family: Cascadia Code;">Tipo</mat-label>
-        <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.tipo" />
-      </mat-form-field>
-      <mat-form-field appearance="fill" style="width: 100%;">
-        <mat-label style="font-family: Cascadia Code;">Region</mat-label>
-        <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.generacion" />
-      </mat-form-field>
-      <img
-        [src]="data.imagen"
-        alt="{{ data.nombre }}"
-        style="width: 200px; height: 200px; border-radius: 50%; margin-top: 15px;"
-      />
-    </div>
-    <div mat-dialog-actions>
-      <button style="color:white; font-family: Cascadia Code; background-color: #568c58; border-color: #568c58; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" mat-button (click)="confirmSave()">Guardar</button>
-      <button style="color:white; font-family: Cascadia Code; background-color: #af2945; border-color: #af2945; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" mat-button mat-dialog-close>Cancelar</button>
-    </div>
+    <div style="border-radius: 12px;">
+      <div class="dialog-header">
+        <h1>Editar Usuario: {{ data.nombre }} {{ data.apellidoP }}</h1>
+        <button mat-icon-button mat-dialog-close>
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+      <div mat-dialog-content>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="data.nombre" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Apellido Paterno</mat-label>
+          <input matInput [(ngModel)]="data.apellidoP" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Apellido Materno</mat-label>
+          <input matInput [(ngModel)]="data.apellidoM" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Correo</mat-label>
+          <input matInput [(ngModel)]="data.correo" />
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="width: 100%;">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" [(ngModel)]="data.password" />
+        </mat-form-field>
+        <img
+          [src]="data.foto"
+          alt="Foto de {{ data.nombre }}"
+          style="width: 200px; height: 200px; border-radius: 50%; margin-top: 15px;"
+        />
+      </div>
+      <div mat-dialog-actions>
+        <button
+          mat-raised-button
+          style="color:white; background-color: #568c58; border-radius: 6px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%;"
+          (click)="confirmSave()"
+        >
+          Guardar
+        </button>
+        <button
+          mat-raised-button
+          style="color:white; background-color: #af2945; border-radius: 6px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%;"
+          mat-dialog-close
+        >
+          Cancelar
+        </button>
+      </div>
     </div>
   `,
   styleUrls: ['usuarios-edit.component.css'],
 })
-export class PokemonEditComponent {
+export class UserEditComponent {
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: Pokemon,
-    private dialogRef: MatDialogRef<PokemonEditComponent>
+    @Inject(MAT_DIALOG_DATA) public data: Usuario,
+    private dialogRef: MatDialogRef<UserEditComponent>
   ) {}
 
   confirmSave(): void {

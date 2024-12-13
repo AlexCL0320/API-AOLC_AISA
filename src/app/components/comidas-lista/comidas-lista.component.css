@@ -65,3 +65,21 @@ td {
   padding-bottom: 50px; /* Evita que el contenido sobrepase el footer */
 
 }
+
+.btn-ver {
+  background-color: #2A313C;
+  color: white;
+  font-style: normal;
+  width: 80%;
+  height: 35px;
+  border-radius: 13px;
+}
+
+.btn-eliminar {
+  background-color: red;
+  color: white;
+  font-style: normal;
+  width: 80%;
+  height: 35px;
+  border-radius: 13px;
+}

@@ -1,4 +1,4 @@
-<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu" style="margin-top: 12px;">
     <mat-icon>menu</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
@@ -7,11 +7,11 @@
       <span>Inicio</span>
     </button>
     <button mat-menu-item (click)="usuarios()">
-      <mat-icon>contact_support</mat-icon> <!-- Cambiado a "mail" -->
+      <mat-icon>supervisor_account</mat-icon> <!-- Cambiado a "mail" -->
       <span>Usuarios</span>
     </button>
     <button mat-menu-item (click)="comidas()">
-      <mat-icon>contact_support</mat-icon> <!-- Cambiado a "mail" -->
+      <mat-icon>store_mall_directory</mat-icon> <!-- Cambiado a "mail" -->
       <span>Comidas</span>
     </button>
     <button mat-menu-item (click)="login()"> 

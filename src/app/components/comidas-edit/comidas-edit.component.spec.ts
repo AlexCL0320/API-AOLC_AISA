@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComidaEditComponent } from './comidas-edit.component';
 
-import { PokemonEditComponent } from './comidas-edit.component';
-
-describe('PokemonEditComponent', () => {
-  let component: PokemonEditComponent;
-  let fixture: ComponentFixture<PokemonEditComponent>;
+describe('ComidaEditComponent', () => {
+  let component: ComidaEditComponent;
+  let fixture: ComponentFixture<ComidaEditComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PokemonEditComponent]
+      imports: [ComidaEditComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(PokemonEditComponent);
+    fixture = TestBed.createComponent(ComidaEditComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
