@@ -17,6 +17,7 @@ export class UserService {
 
   // Editar usuario
   editUser(id: number, user: any): Observable<any> {
+    console.log('Datos enviados:', user);
     return this.http.put(`${this.apiUrl}/usuarios/${id}`, user);
   }
 

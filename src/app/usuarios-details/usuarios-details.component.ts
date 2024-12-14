@@ -23,7 +23,7 @@ import { MatIcon } from '@angular/material/icon';
     <div mat-dialog-actions>
       <button 
         mat-raised-button 
-        style="color:white; font-family: Cascadia Code; background-color: #cd7600; border-color: #cd7600; border-radius: 6px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;"
+        style="color:white; font-family: Cascadia Code; background-color: #425953; border-color: #425953; border-radius: 6px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;"
         (click)="onClose()"
       >Cerrar</button>
     </div>

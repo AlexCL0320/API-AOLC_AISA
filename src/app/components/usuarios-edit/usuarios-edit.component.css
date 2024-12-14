@@ -3,8 +3,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);
-  color: #ffffff;
+  background: linear-gradient(135deg,#4e7e89,#4e8977);
+  color: #cccccc;
   padding: 10px 20px;
   border-top-left-radius: 4px;
   border-top-right-radius: 4px;
@@ -68,21 +68,21 @@
   }
   
   mat-dialog-actions button:first-child {
-    background-color: #4caf50; /* Verde para guardar */
+    background-color: #356f5f; /* Verde para guardar */
     color: #ffffff;
     margin-right: 10px;
   }
   
   mat-dialog-actions button:first-child:hover {
-    background-color: #45a049;
+    background-color: #366239;
   }
   
   mat-dialog-actions button:last-child {
-    background-color: #f44336; /* Rojo para cancelar */
+    background-color: #425953; /* Rojo para cancelar */
     color: #ffffff;
   }
   
   mat-dialog-actions button:last-child:hover {
-    background-color: #e53935;
+    background-color: #42595394;
   }
   

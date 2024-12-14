@@ -73,9 +73,8 @@
           <ng-container matColumnDef="foto">
             <th mat-header-cell *matHeaderCellDef style="background-color: #4e8878;">Foto</th>
             <td mat-cell *matCellDef="let usuario"
-              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }"
-              style="display: flex; justify-content: center; align-items: center; height: 80%;">
-              <img [src]="usuario.foto" alt="Foto de usuario" style="width: 50px; height: 50px; border-radius: 50%;">
+              [ngStyle]="{ 'background-color': usuario.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
+              <img [src]="usuario.foto" alt="Foto de usuario" style="width: 90px; height: 90px; border-radius: 50%;">
             </td>
           </ng-container>
 

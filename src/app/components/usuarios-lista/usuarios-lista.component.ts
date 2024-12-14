@@ -147,11 +147,9 @@ export class UsuariosListaComponent implements OnInit {
       // Si el campo de búsqueda está vacío, restauramos los datos originales
       this.dataSource.data = [...this.usuariosOriginales];
     } else {
-      // Filtrar los usuarios por nombre, apellido y correo
+      // Filtrar los usuarios por nombre y correo
       this.dataSource.data = this.usuariosOriginales.filter((usuario: Usuario) =>
         usuario.nombre.toLowerCase().includes(valorBusqueda) ||
-        usuario.apellidoP.toLowerCase().includes(valorBusqueda) ||
-        usuario.apellidoM.toLowerCase().includes(valorBusqueda) ||
         usuario.correo.toLowerCase().includes(valorBusqueda)
       );
     }

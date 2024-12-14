@@ -57,14 +57,14 @@ import { Usuario } from '../usuarios-lista/usuarios.interface';
       <div mat-dialog-actions>
         <button
           mat-raised-button
-          style="color:white; background-color: #568c58; border-radius: 6px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%;"
+          style="color:white; background-color: #356f5f; border-color: #356f5f; border-radius: 4px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%;"
           (click)="confirmSave()"
         >
           Guardar
         </button>
         <button
           mat-raised-button
-          style="color:white; background-color: #af2945; border-radius: 6px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%;"
+          style="color:white; background-color: #425953; border-color: #425953; border-radius: 4px; height: 40px; width: 120px; margin-top: 2%; margin-left: 2%;"
           mat-dialog-close
         >
           Cancelar

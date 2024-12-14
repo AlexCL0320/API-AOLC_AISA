@@ -3,8 +3,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(135deg, #021a22, #292e3b,#292e3b, #1b333b);
-    color: #ffffff;
+    background: linear-gradient(135deg,#4e7e89,#4e8977);
+    color: #cccccc;
     padding: 10px 20px;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
@@ -32,8 +32,8 @@
   .dialog-content {
     margin: 2%;
     border-radius: 4px;
-    background-color: #2a2d3e; /* Azul oscuro */
-    color: #d8d5d5;
+    background-color: #587d7f82; /* Azul oscuro */
+    color: #232222;
     padding: 20px;
     font-family: 'Cascadia Code', sans-serif;
     text-align: left;
