@@ -16,7 +16,7 @@ Proyecto Generado con [Angular CLI](https://github.com/angular/angular-cli) vers
 ## Pantalla de Login para validación de Usuarios  
 ![image](https://github.com/user-attachments/assets/b7366bff-dbcb-4f72-a4f5-4e09ea7cfdf3)
 
-## Pantalla de Validación de Usuario  
+## Mensaje de Validación de Usuario  
 ![image](https://github.com/user-attachments/assets/3e2bc95b-e43e-4d88-a110-eb79a4c220a6)
 
 ## Pantalla Principal  
@@ -29,13 +29,25 @@ Proyecto Generado con [Angular CLI](https://github.com/angular/angular-cli) vers
 ![image](https://github.com/user-attachments/assets/42fe88ff-fcac-4a20-a667-8592fb942155)
 
 ## Pantalla de Visualización de un Usuario Específico  
-![image](https://github.com/user-attachments/assets/9915ee02-84fb-4ed4-8e27-dfe5aa4499c1)
+![image](https://github.com/user-attachments/assets/a7eae987-0d20-4e70-92fe-c6ff7b37cd10)
+
+## Pantalla de Edición de Usuario
+![image](https://github.com/user-attachments/assets/07116620-5f3f-40f8-a5fd-fafae1c7a5e0)
+
+## Mensaje de Eliminación de Usuario
+![image](https://github.com/user-attachments/assets/b3f5813d-1221-4686-81f2-6ac1d528df0b)
 
 ## Pantalla de Tabla de Comidas  
 ![image](https://github.com/user-attachments/assets/5a0605f4-931a-4b16-8079-589b5f11b049)
 
 ## Pantalla de Visualización de una Comida Específica   
 ![image](https://github.com/user-attachments/assets/1dd4390a-5c0d-4848-a728-42a2c15e917f)
+
+## Pantalla de Edición de Comida
+![image](https://github.com/user-attachments/assets/96b31718-aac4-40df-971b-bcd1b547f20d)
+
+## Mensaje de Eliminación de Comida
+![image](https://github.com/user-attachments/assets/8da02ec4-4d5e-40d3-96ff-9e3fb843ad41)
 
 # 2.- Explicación del Código  
 Para el desarrollo del proyecto ha sido utilizado Angular para la creación del frontend de la aplicación, cumpliendo con la función de creación de las vistas y de realizar llamadas al Backend para la obtención de información requerida por el usuarios (Lista de usuarios, Lista de Comidas, Validación de un Usuario, Eliminación, etc.). Inmplementando funcionalidades de solicitures estándar: GETM POST, PUT, DELETE.
@@ -178,9 +190,9 @@ Es utilizado el componente "MatTableDataSourse" para la gestión y visualizació
 ![image](https://github.com/user-attachments/assets/28816d88-37c0-4c93-b4c2-ef20c631cea0)
 
 #### Comidas-Edit  
-El componente permite editar los detalles de una comida seleccionada, cada uno de los campos está vinculado al objeto data de tipo comida, haciendo uso de la directiva ngModel para el enlace entre el modelo y la vista. Cuando el usuario decide guardar los cambios, se muestra un mensaje de confirmación. si esta es afirmativa los cambios se envían de vuelta al componente.
-
-Si el usuario opta por cancelar la operacion se cierra sin realizar operaciones.
+El componente permite editar los detalles de una comida seleccionada, cada uno de los campos está vinculado al objeto data de tipo comida, haciendo uso de la directiva ngModel para el enlace entre el modelo y la vista. Cuando el usuario decide guardar los cambios, se muestra un mensaje de confirmación. si esta es afirmativa los cambios se envían de vuelta al componente.  
+Si el usuario opta por cancelar la operacion se cierra sin realizar operaciones.  
+![image](https://github.com/user-attachments/assets/5ebf2b44-9b19-42eb-9071-8e28b38b237e)
 
 ##### Código CSS  
 ![image](https://github.com/user-attachments/assets/d937d974-ad96-4f4a-86af-329c25cb16c2)
@@ -192,7 +204,7 @@ Si el usuario opta por cancelar la operacion se cierra sin realizar operaciones.
 Componente correspondiente a la página de administración de la lista de usuarios mediante una tabla, permitiendo realizar la busqueda, ver detalles, o eliminar registros. La página ucenta con una estructura de fondo gradiente, aplicando estilos a los elementos.   
 La tabla incluye elementos pacomo lo son: Id, Nombre, Apellidos, Corro, Foto, Detalles y un apartado de acciones, que permite, editar o eliminar el registro, además es incluido un elemento de paginación que permite ajustar los tamaños de página a 20,50 y 100 elementos.
 
-![image](https://github.com/user-attachments/assets/081d4dad-5d5d-46af-99ee-26397a6d07da)
+![image](https://github.com/user-attachments/assets/cf932c90-f4b6-4b5b-9dd4-cd12911d2eb3)
 
 ##### Código CSS  
 ![image](https://github.com/user-attachments/assets/b850421f-6757-4418-9145-8ba6f5803fce)
@@ -204,7 +216,9 @@ La tabla incluye elementos pacomo lo son: Id, Nombre, Apellidos, Corro, Foto, De
 ![image](https://github.com/user-attachments/assets/1445cde0-4864-4796-b58c-5406dfcaccc5)
 
 #### Usuarios-Edit  
-Consiste en la implementación para la edición de un usuario. Permite realizar la edición de todos los atributos, se hace uso de la instrucción PUT para el envió de datos al bakcend donde es realizada la operación de corrección retornando un mensaje de exito o fallo.
+Consiste en la implementación para la edición de un usuario. Permite realizar la edición de todos los atributos, se hace uso de la instrucción PUT para el envió de datos al bakcend donde es realizada la operación de corrección retornando un mensaje de exito o fallo.  
+
+![image](https://github.com/user-attachments/assets/89e39ca7-24a2-479b-8405-f68bcd3e00e9)
 
 ##### Código CSS  
 ![image](https://github.com/user-attachments/assets/23d96d1d-1c29-42f7-91f5-6d38d08a774b)
