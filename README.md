@@ -12,6 +12,8 @@ Santiago Anaya Adán Ismael
 
 Proyecto Generado con [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10. 
 
+#Frontend
+
 # 1.- Pantallas Principales de la Aplicación  
 ## Pantalla de Login para validación de Usuarios  
 ![image](https://github.com/user-attachments/assets/b7366bff-dbcb-4f72-a4f5-4e09ea7cfdf3)
