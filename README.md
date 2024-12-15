@@ -1,1264 +1,243 @@
-# Login - API Pokemons 
+# Login - API Comidas y sus Ingredientes
 
-Objetivo: Generación de un login que solicite al usuario ingresar un nombre de usuario y contraseña, estos datos se verificaran con la lista de usuarios consumidos por la api; si el nombre de usuario y password coinciden con algun registro se permitira el acceso a la ventana home donde se consultara  una segunda API referente a Pokemons, caso contrario se mostrara una alerta con el mensaje "Usuario Invalido"
+**Integrantes del Equipo:**  
+López Carreño Alexis Oswaldo   
+Santiago Anaya Adán Ismael   
 
-![image](https://github.com/user-attachments/assets/5e745f01-a820-4eab-adf3-6d96700ef649)
+**Materia**: Programación Web  
+**Docente**: Martínez Nieto Adelina  
 
 
-# Consumo de API sobre Pokemons
-![image](https://github.com/user-attachments/assets/be6e3c94-603b-4569-ac7b-819ad208fa19)
+**Objetivo**: Generación de un Login que solicite al usuario el ingreso de un correo y una contraseña, estos datos serán verificados mediante solicitudes GET, donde si estos datos coinciden con algún registro de la lista obtenida, se permitirá el acceso a la pantalla principal, donde se podrá mostrar la lista de comidas y usuarios; En caso contrario, se mostrará un mensaje de alerta con el mensaje "Usuario Inválido"
 
-Proyecto Generado con [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10.
-## Explicacion de la Practica 
+Proyecto Generado con [Angular CLI](https://github.com/angular/angular-cli) version 18.2.10. 
 
-Para comenzar  con el desarrollo de la practica es necesario contar con algunos  requisitos de instalacioón previos a la ejecución del repositorio
+# 1.- Pantallas Principales de la Aplicación  
+## Pantalla de Login para validación de Usuarios  
+![image](https://github.com/user-attachments/assets/b7366bff-dbcb-4f72-a4f5-4e09ea7cfdf3)
 
-### Requisitos Previos
-1.- IDE de desarrollo (VS CODE)
+## Pantalla de Validación de Usuario  
+![image](https://github.com/user-attachments/assets/3e2bc95b-e43e-4d88-a110-eb79a4c220a6)
 
-2.- Instalación del Framework ANGULAR CLI vs 18.2.10
+## Pantalla Principal  
+![image](https://github.com/user-attachments/assets/5c63ab7f-3b72-4480-b5d5-0fce31171e5a)
 
-3.- Instalación de librerias npm
+## Menú de Selección  
+![image](https://github.com/user-attachments/assets/8af0cc99-4266-464f-af35-42a720ae37c5)
 
-4.- Instalación de librerias boostrap
+## Pantalla de Tabla de Usuarios  
+![image](https://github.com/user-attachments/assets/42fe88ff-fcac-4a20-a667-8592fb942155)
 
-5.- Instalación de libreria ngx pagination
-
-6.- Instalación de Material Desing (Para la incorporación de componentes)
-
-Para poder ejecutar de forma correcta el contenido del repositorio en tu computador es necesario que una vez clonado el repositorio en tu area de trabajo se realice la instalción de las librerias anteriormente mencionadas a traves de tu entorno de desarrollo (IDE).
-
-## Desarollo de la Practica 
-
-### 1.- Creación del Proyecto
-Para comenzar a trabajar el consumo de APIS web y la validación del login con base en los datos recuperados será necesaria la creación de un proyecto en ANGULAR a traves del cual se pueda consultar el contenido de una API haciendo uso de servicios; para finalmente validar que el usuario ingresado en el formulario del login se encuentre en la lista de usuarios contenidas en el JSON de consulta.
-
-Por ello para la generación de un nuevo proyecto en Angular debemos abrir la terminal o consola, dentro de ella ubicarno en el directorio donde deseemos crear nuestro poryecto y ejecutar los siguientes comandos:
-
-•	ng new LoginAngular_AOLC --routing --standalone=false
-
-•	Ingresa en la carpeta del proyecto:
-
-•	cd LoginAngular_AOLC
-
-•	aceptar las opciones predeterminadas cuando se solicite.
-
-![image](https://github.com/user-attachments/assets/2f133b27-f40b-476c-9051-3eac6076441c)
-
-Comandos de Creación 
-
-![image](https://github.com/user-attachments/assets/f551edb0-1d0b-4050-ae12-4f497330ffd5)
-
-Proyecto Base Generado
-
-
-### 3.-Generación de los componentes login para el Consumo de API
-Una vez creado el proyecto base es necesario crear los componentes donde se trabajaran los elementos que contrendran nuestro sitio web para la validacion del login y consulta de los pokemons, para ello a continuacion se detalla la instruccion de creación del componente y el codigo de sus archivos .html, .ts, .ccs
-
-#### Componente Login
-Instrucción de creacion:
-    
-    ng generate module login; ng generate component login --module=login
-
-Codigo login.html
-
-    <div  class="container text-center mt-5" style="display: flex; align-items: center; justify-content: center;  height: 100vh;">
-    <mat-card class="example-card" style="display: flex; justify-content: center;  align-items: center; border-radius: 12px; background: linear-gradient(135deg, #dec604, #7a6200) " appearance="outlined">
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-header>    
-        <mat-card-title style="color: black; font-size: 16px; font-weight: bold; font-family: Cascadia Code; ">Bienvenido Entrenador</mat-card-title>
-        <br><br>
-        <!--<mat-card-subtitle>Dog Breed</mat-card-subtitle>-->
-      </mat-card-header>
-      <mat-card-content>
-        <mat-form-field style="width: 400px; margin-top: 6%;" class="llenarInformacion">
-          <mat-label style="font-family: Cascadia Code;" >Correo Electrónico o Usuario</mat-label>
-          <input style="font-family: Cascadia Code;" type="email" matInput placeholder="Ingresa Usuario" [(ngModel)]="log_gmail">
-        </mat-form-field>
-        <br>
-        <br>
-        <mat-form-field style="width: 400px; border-radius: 28px;" class="llenarInformacion">
-          <mat-label style="font-family: Cascadia Code;" >Contraseña</mat-label>
-          <input  style="font-family: Cascadia Code;" type="password" matInput placeholder="Ingresa Contraseña" [(ngModel)]="log_password">
-        </mat-form-field>
-      </mat-card-content>
-      <mat-card-actions style="justify-content: center; padding-bottom: 1%;">
-        <button mat-flat-button style="background-color: #2A313C; color: white; font-style: normal; width: 200px;" (click)="ingresar()"> Acceder</button>
-      </mat-card-actions>
-    </mat-card>
-    </div>
-
-Codigo login.ts
-
-    import {ChangeDetectionStrategy, Component} from '@angular/core';
-    import {MatButtonModule} from '@angular/material/button';
-    import { Router } from '@angular/router';
-    import { RouterOutlet } from '@angular/router';
-    import { MatCardModule } from '@angular/material/card';
-    import { MatTabsModule } from '@angular/material/tabs';
-    import { MatInputModule } from '@angular/material/input';
-    import { FormsModule } from '@angular/forms';
-    import { MatIconModule } from '@angular/material/icon';
-    import { UserService } from '../services/user.service';  
-    import { GlobalUserService } from '../services/global-user.service';
-    
-    
-    @Component({
-      selector: 'app-root',
-      standalone: true,
-      imports: [ MatCardModule, MatButtonModule, MatButtonModule, MatTabsModule, MatInputModule, FormsModule, MatIconModule, RouterOutlet],
-      templateUrl: './login.component.html',
-      styleUrls: ['./login.component.css']
-    })
-    export class LoginComponent {
-      title = 'LoginAngular_AOLC';
-    
-      // variables 
-      log_gmail: string = '';
-      log_password: string = '';
-      reg_email: string = '';
-      reg_password: string = '';
-      reg_conf_password: string = '';
-    
-      hidePassword: boolean = true;
-      constructor(private router: Router, private userService: UserService, 
-        private globalUserService: GlobalUserService) {}
-      verContrase() {
-        this.hidePassword = !this.hidePassword;
-      }
-      ingresar() {
-         // obtener usuarios con la api
-         this.userService.getUsers().subscribe(
-          (users) => {
-            const validUser = users.find(
-              user => user.login === this.log_gmail && user.node_id === this.log_password
-            );
-            //validar contraseña y gmail
-            //si son correctos
-            if (validUser) {
-              alert('Inicio de sesión exitoso');
-              console.log('Exito');
-              // Guardar la URL de la imagen del usuario
-              this.globalUserService.setUserImageUrl(validUser.avatar_url);
-              this.globalUserService.setUserName(validUser.login);
-              this.router.navigate(['/home']);  
-            } else {
-              console.log('Correo o contraseña incorrectos');
-              alert('Correo o contraseña incorrectos. Intente de nuevo.');
-            }
-            // ver usuarios y contraseñas en consola
-            const userCredentials = users.map(user => ({
-              email: user.email,
-              password: user.password
-            }));
-            console.log('Correos y contraseñas:', userCredentials);
-          },
-          (error) => {
-            console.error('Error al obtener usuarios:', error);
-          }
-        );
-        
-      }
-    
-      registrar() {
-        console.log('Registrando usuario...');
-      }
-    }
-
-    
-
-Codigo login.css
-
-    .example-card {
-    width: 600px;
-    height: 450px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-    border: black;
-    }
-  
-  
-    .example-header-image {
-      background-image: url('https://i.pinimg.com/736x/e4/f3/83/e4f383c0344e99637fca46ec3e146403.jpg');
-      background-size: cover;
-      background-position: center;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 18%;
-      height: 0;
-      padding-top: 18%; /* Mantiene el aspecto cuadrado en diferentes pantallas */
-      border-radius: 50%; /* Hace que el avatar sea redondo */
-      overflow: hidden; /* Oculta cualquier contenido que sobresalga */
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Añade una sombra para darle profundidad */
-      margin: 0 auto; /* Centra el avatar horizontalmente en el contenedor */
-      margin-top: 0%;
-    }
-
-Para la validación del usuario a traves del login a los inputs de usuario y constraseña se les asigna un enlace [(ngModel)] a el modelo de datos (variables) declarado en el archivo login.ts con los siguientes alias
-
-cooreo -> [(ngModel)]="log_gmail"
-password -> [(ngModel)]="log_password"
-
-Esto para que a traves de las instrucciones 
-    
-     this.userService.getUsers().subscribe(
-      (users) => {
-        const validUser = users.find(
-          user => user.login === this.log_gmail && user.node_id === this.log_password
-        );
-        //validar contraseña y gmail si son correctos
-        if (validUser) {
-          alert('Inicio de sesión exitoso');
-          console.log('Exito');
-          // Guardar la URL de la imagen del usuario
-          this.globalUserService.setUserImageUrl(validUser.avatar_url);
-          this.globalUserService.setUserName(validUser.login);
-          this.router.navigate(['/home']);  
-        } else {
-          console.log('Correo o contraseña incorrectos');
-          alert('Correo o contraseña incorrectos. Intente de nuevo.');
-        }
-        // ver usuarios y contraseñas en consola
-        const userCredentials = users.map(user => ({
-          email: user.email,
-          password: user.password
-        }));
-        console.log('Correos y contraseñas:', userCredentials);
-      },
-      (error) => {
-        console.error('Error al obtener usuarios:', error);
-      }
-    );
-
-  Se compare el valor de estas variables con los valores recuperados desde la API a traves del servicio user.service y en caso de devolverse un true se conceda el accesso a home y se mande la alerta correspondiente; todo a traves de la funcion ingresar del archivo typescript
-          
-#### Componente home
-Instrucción de creacion:
-    
-    ng generate module home; ng generate component home --module=home
-
-Codigo home.html
-
-    <div style=" background-color: #212830">
-    <app-header></app-header>
-    <div style="width: 89%;" class="content">
-        <app-usuarios-lista></app-usuarios-lista>
-    </div>
-    <app-footer></app-footer>
-    </div>
-
-Codigo home.ts
-
-    import { Component } from '@angular/core';
-    import { MatToolbarModule } from '@angular/material/toolbar';
-    import { MatButtonModule } from '@angular/material/button';
-    import { MatMenuModule } from '@angular/material/menu';
-    import { RouterModule } from '@angular/router';
-    import { HeaderComponent } from "../header/header.component";
-    import { RouterOutlet, RouterLink } from '@angular/router';
-    import { MenuComponent } from "../menu/menu.component";
-    import { MatIconModule } from '@angular/material/icon';
-    import { FooterComponent } from "../footer/footer.component";
-    import { UserService } from '../services/user.service';
-    import { CommonModule } from '@angular/common';
-    import { UsuariosListaComponent } from "../components/pokemons-lista/pokemon-lista.component"; 
-    
-    @Component({
-      selector: 'app-home',
-      standalone: true,
-      imports: [MatToolbarModule, MatButtonModule, MatIconModule, MatMenuModule, RouterModule, HeaderComponent, FooterComponent,
-        RouterLink, RouterOutlet, MenuComponent, CommonModule, UsuariosListaComponent],
-      templateUrl: './home.component.html',
-      styleUrl: './home.component.css'
-    })
-    export class HomeComponent {
-      logout() {
-        console.log('Logging out...');
-        // Agrega la lógica de cierre de sesión aquí, como limpiar el almacenamiento local, redirigir, etc.
-      }
-    }
-
-
-Codigo home.css
-
-    .content{
-      margin-left: 12%; 
-      background-color: #212830; 
-      color: mintcream;
-      border-radius: 10px; 
-      margin-bottom: 5%; 
-      margin-right: 2%; 
-      margin-top: 2%; 
-      display:flex; 
-      justify-content: center;
-      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-      border: black;
-      min-height: calc(100vh - 50px); /* Ajusta 50px al tamaño del footer */
-      padding-bottom: 50px; /* Evita que el contenido sobrepase el footer */
-    
-    }
-
-#### Componente Header
-Instrucción de creacion:
-    
-    ng generate module header; ng generate component header --module=header
-
-Codigo header.html
-
-    <mat-card appearance="outlined" class="header">
-        <mat-card-content>
-            <app-menu></app-menu>
-            <a style="padding-left: 2%;" class="social-links" href="https://github.com/AlexCL0320" target="_blank">
-                <img src="/assets/git.png" alt="GitHub Logo" width="40" height="40" style="vertical-align: middle;">
-            </a> AlexCL0320
-        </mat-card-content>
-    </mat-card>
-
-
-
-Codigo header.ts
-
-    import {ChangeDetectionStrategy, Component} from '@angular/core';
-    import {MatCardModule} from '@angular/material/card';
-    import { RouterOutlet } from '@angular/router';
-    import { MenuComponent } from "../menu/menu.component";
-    import { MatIconModule } from '@angular/material/icon';
-    /**
-     * @title Basic cards
-     */
-    @Component({
-      selector: 'app-header',
-      standalone: true,
-      imports: [RouterOutlet, MatCardModule, MenuComponent,  MatIconModule],
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      templateUrl: 'header.component.html',
-      styleUrl: 'header.component.css'
-    })
-    
-    export class HeaderComponent {
-    
-    }
-
-Codigo header.css
-
-    .header{
-        color:azure;
-        background-color: #151b23;
-        border-radius: -10px;
-        font-size: 12px;
-        margin-top: -0.5%;
-        padding-bottom: -4%;
-    }
-    
-    .mat-card-content{
-    color: azure;
-    }
-
-#### Componente Menu
-Instrucción de creacion:
-    
-    ng generate module  menu; ng generate component menu --module=menu
-
-Codigo menu.html
-  
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
-    <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item>
-        <mat-icon>home</mat-icon> <!-- Cambiado a "home" -->
-        <span>Inicio</span>
-      </button>
-      <button mat-menu-item (click)="login()"> 
-        <mat-icon>exit_to_app</mat-icon> <!-- Cambiado a "notifications" -->
-        <span>Salir</span>
-      </button>
-    </mat-menu>
-      
-
-Codigo menu.ts
-
-    import { Component } from '@angular/core';
-    import { MatIconModule } from '@angular/material/icon';
-    import { MatMenuModule } from '@angular/material/menu';
-    import { MatButtonModule } from '@angular/material/button';
-    import { Router, RouterModule } from '@angular/router';
-    
-    @Component({
-      selector: 'app-menu',
-      standalone: true,
-      imports: [MatButtonModule, MatMenuModule, MatIconModule, RouterModule],
-      templateUrl: 'menu.component.html',
-      styleUrls: ['menu.component.css']
-    })
-    export class MenuComponent {
-      constructor(private router: Router) {}
-    
-      login(): void {
-        this.router.navigate(['/login']);
-      }
-    }
-
-
-
-Codigo menu.css
-
-    --No se personaliza
-
-#### Componente Footer
-Instrucción de creacion:
-    
-    ng generate module footer; ng generate component footer --module=footer
-
-Codigo footer.html
-
-    <mat-card appearance="outlined" class="footer" style="background-color:#151b23; color: white;">
-        <mat-card-content style="display:flex; justify-content:center;">
-            <img src="public/../favicon.ico" width="20" height="20" style="vertical-align: middle" style="padding-right: 1.5%"> By Angular
-        </mat-card-content>
-    </mat-card>
-
-
-
-Codigo footer.ts
-
-    import {ChangeDetectionStrategy, Component} from '@angular/core';
-    import {MatCardModule} from '@angular/material/card';
-    import { RouterOutlet } from '@angular/router';
-    
-    /**
-     * @title Basic cards
-     */
-    @Component({
-      selector: 'app-footer',
-      standalone: true,
-      imports: [RouterOutlet, MatCardModule],
-      changeDetection: ChangeDetectionStrategy.OnPush,
-      templateUrl: 'footer.component.html',
-      styleUrl: './footer.component.css'
-    })
-    export class FooterComponent {
-    
-    }
-
-Codigo footer.css
-
-    .footerr{
-        color:azure;
-        background-color: #151b23;
-        border-radius: -20px;
-        font-size: 14px;
-        margin-top: -3.5%;
-        position: fixed;
-        width: 100%;
-    
-    }
-    
-    .mat-card-content{
-    color: azure;
-    background-color: #151b23;
-    
-    }
-
-La presentación de los datos consumidos a traves de la API se realziara a traves de la presentación de una tabla estándar con paginación; por esto se debe crear un nuevo componente del proyecto que se encargue de manejar el contenido html y operaciones TypeScript donde se presentara toda la información referente a los pokemons consultados.
-
-Para ello generaremos un nuevo componente llamado pokemons-lista a traves del siguiente comando
-
-Comando de Generación de Componente pokemons-lista
-
-    • ng generate component components/pokemons-lista
-![image](https://github.com/user-attachments/assets/159a3267-ef70-4f26-9d30-dd0246514da7)
-
-La tabla de presentacion tendrá un formato estandar que cuenta con los apartados id, nombre, tipo, habilidades, region, imagen del pokemon junto con columnas adcionales para consultar los detalles del pokemon y realizar operaciones de edición o eliminación sobre los mismos. La configuración de la interfaz de presentacion se realizara en el archivo pokemon-lista.component.html
-
-Codigo pokemons-lista.component.html
-
-    <mat-card style="width: 95%; background-color: transparent">
-      <mat-card-header
-        style="margin-bottom: 2%; background-color: #cd7600; border-radius: 9px; text-align: center; display: flex; justify-content: center; align-items: center;">
-        <mat-card-title>
-          <img src="/assets/logo.png" alt="Pokedex" width="150" style="vertical-align: middle;">
-        </mat-card-title>
-      </mat-card-header>
-    
-      <!-- Filtros -->
-      <mat-card-content style="margin-bottom: -2%;">
-        <div style=" display: flex; align-items: left; justify-content: left; gap: 1rem; margin-bottom: 1rem;">
-          <button mat-raised-button class="btn" style="background-color: #af2945;" (click)="resetFilters()">Limpiar</button>
-        </div>
-        <p style="font-family: Cascadia Code;">Region</p>
-        <div style=" display: flex; align-items: left; justify-content: left; gap: 1rem; margin-bottom: 1rem;">
-          <button mat-raised-button class="btn" style="background-color: #2e4766;" (click)="filterByRegion('Galar')">Galar</button>
-          <button mat-raised-button class="btn" style="background-color: #57995a;" (click)="filterByRegion('Alola')">Alola</button>
-          <button mat-raised-button class="btn" style="background-color: #848b2d;" (click)="filterByRegion('Unova')"> Unova</button>
-          <button mat-raised-button class="btn" style="background-color: #488078;" (click)="filterByRegion('Kanto')">Kanto</button>
-        </div>
-    
-        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
-          <mat-form-field class="llenarInformacion"
-            style="display: flex; align-items: left; justify-content: left; border-radius: 4px; width: 40%;"
-            appearance="fill">
-            <mat-label style="color: #2a2a2a; font-family: Cascadia Code;">Tipo</mat-label>
-            <mat-select [(value)]="selectedType" (selectionChange)="filterByType($event.value)"
-              style="color: #2a313c; font-family: Cascadia Code;">
-              <mat-option style="font-family: Cascadia Code; background-color: transparent;"
-                *ngFor="let type of tiposPokemon" [value]="type">
-                {{ type }}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-    
-          <mat-form-field style="gap: 1rem; width: 30%; margin-top: 1rem; margin-left: 30%;"
-            class="filter-input llenarInformacion">
-            <mat-label>Buscar</mat-label>
-            <input matInput placeholder="Eje. Dialga" id="idBusqueda" (input)="applyFilter($event)">
-          </mat-form-field>
-        </div>
-    
-      </mat-card-content>
-    
-      <mat-card-content style="background-color: #c9c9c9; border-radius: 4px; padding-top: 2%;">
-        <table mat-table [dataSource]="dataSource" matSort>
-    
-          <!-- ID -->
-          <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #193059;">ID</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              {{ pokemon.id }}
-            </td>
-          </ng-container>
-    
-          <!-- Nombre -->
-          <ng-container matColumnDef="nombre">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="background-color: #113d7d;">Nombre</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              {{ pokemon.nombre }}
-            </td>
-          </ng-container>
-    
-          <!-- Habilidades -->
-          <ng-container matColumnDef="habilidades">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #193059;">Habilidades</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              {{ pokemon.habilidades }}
-            </td>
-          </ng-container>
-    
-          <!-- Tipo -->
-          <ng-container matColumnDef="tipo">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #113d7d;">Tipo</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              {{ pokemon.tipo }}
-            </td>
-          </ng-container>
-     
-          <!-- Generacion -->
-          <ng-container matColumnDef="region">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #193059;">Region</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              {{ pokemon.generacion }}
-            </td>
-          </ng-container>
-    
-          <!-- Imagen -->
-          <ng-container matColumnDef="imagen">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #113d7d;">Pokemon</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              <img [src]="pokemon.imagen" alt="Imagen de Pokémon" style="width: 100px; height: 100px; border-radius: 50%;">
-            </td>
-          </ng-container>
-    
-          <!-- Detalles -->
-          <ng-container matColumnDef="detalles">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #193059;">Detalles</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              <button mat-flat-button
-                style="background-color: #2A313C; color: white; font-style: normal; width: 80%; height: 35px; border-radius: 13px;"
-                (click)="verDetalles(pokemon)">Ver</button>
-            </td>
-          </ng-container>
-    
-          <!-- Acciones -->
-          <ng-container matColumnDef="acciones" style="display: flex;  justify-content: center; align-items: center;">
-            <th mat-header-cell *matHeaderCellDef style="background-color: #113d7d;">Acciones</th>
-            <td mat-cell *matCellDef="let pokemon"
-              [ngStyle]="{ 'background-color': pokemon.id % 2 !== 0 ? '#d4d4d4' : '#c9c9c9' }">
-              <button mat-icon-button color="primary"
-                style="margin-left: 5%; background-color: #57995a; border-radius: 8px;" (click)="editarPokemon(pokemon)">
-                <mat-icon style="color: white; background-color: #57995a;">edit</mat-icon>
-              </button>
-              <button mat-icon-button color="warn" style="margin-left: 5%; background-color: #af2945; border-radius: 8px;"
-                (click)="eliminarPokemon(pokemon)">
-                <mat-icon style="color: white; background-color: #af2945;">delete</mat-icon>
-              </button>
-            </td>
-          </ng-container>
-    
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-        </table>
-    
-        <mat-paginator style="background-color: #2e4766; color: white; border-radius: 8px; font-size: 14px; margin-top: 2%;"
-          [pageSizeOptions]="[ 20, 50, 100]" showFirstLastButtons></mat-paginator>
-      </mat-card-content>
-    </mat-card>
-
-
-Con esto finalizamos la creación y distribución inicial de los componentes de nuestro  proyecto, concluido este paso nuestro proyecto se vera de la siguiente forma:
-
-Estructura del Proyecto Login con Componentes Incorporados
-![image](https://github.com/user-attachments/assets/1ae38a9d-5c70-4a5e-9b37-7ec5fa5ffdd4)
-
-Vista Login
-![image](https://github.com/user-attachments/assets/9c91c997-5f97-4dbc-8e4e-925e84ac2f9a)
-
-Vista Home
-
-![image](https://github.com/user-attachments/assets/7d76da54-7a5b-455c-838c-af755b497006)
-
-
-Hasta al momento aun no se recuperan dentro del proyecto los usuarios ni los datos de los pokemons proporcionados por la API, por lo que en la seccion home aun no se muestra informacion relevante
-Para continuar con el desarrollo de la practica es necesaria la configuración del servicio para el consumo de la API como se detalla mas adelante
-
-### 2.-Generación de los Servicios para  el Consumo de las API(s)
-Para iniciar el consumo de API externas es necesarios la configuración de servicios dentro de nuestro proyecto a traves de los cuales se pueda accesar a la API y recupear su contenido a traves de un JSON.
-
-Por ello dentro del proyecto se debe generar servicios que se encargue de consumir la API Web de usuarios y la API de pokemos; para ello en la terminal debemos escribir los siguientes comandos para la generacion de los servicios: 
-
-    • ng generate service services/user
-    • ng generate service services/pokemon|
-
-![image](https://github.com/user-attachments/assets/e89840f4-ade4-45df-9809-fccadcbc0138)
-
-Generación de los Servicios
-
-Una vez generemos los servicios debemos configuras las direccion a las API(s)  de consulta en el caso de usuarios estaremos consultado la direccion:  https://api.github.com/users  mientras que para la consulta de los pokemons estaremos utilizando la dirección: https://pokeapi.co/api/v2/pokemon?limit=1302
-
-#### Configuracion de servicios
-
-Servicio para la consulta y validación de usuarios
-
-    import { Injectable } from '@angular/core';
-    import { HttpClient } from '@angular/common/http';
-    import { Observable } from 'rxjs';
-    
-    @Injectable({
-      providedIn: 'root'
-    })
-    export class UserService {
-      private apiUrl = 'https://api.github.com/users';
-      constructor(private http: HttpClient) {}
-    
-      getUsers(): Observable<any[]> {
-        return this.http.get<any[]>(this.apiUrl);
-      }
-    }
-
-Servicio para la consulta y operaciones sobre Pokemons
-
-    import { Injectable } from '@angular/core';
-    import { HttpClient } from '@angular/common/http';
-    import { Observable } from 'rxjs';
-    
-    @Injectable({
-      providedIn: 'root',
-    })
-    export class PokemonService {
-      private apiUrl = 'https://pokeapi.co/api/v2/pokemon?limit=1302'; // Obtenemos los primeros 50 Pokémon.
-    
-      constructor(private http: HttpClient) {}
-    
-      getPokemons(): Observable<any> {
-        return this.http.get<any>(this.apiUrl);
-      }
-    
-      getPokemonDetails(url: string): Observable<any> {
-        return this.http.get<any>(url);
-      }
-    }
-
-
-### 3.- Configurar Modelo de Servicio (HttpCLienteModule)
-Para permitir el acceeso del servicio dentro de los compoentes de nuestro proyecto es necesario configurar las importaciones y rutas necesarias dentro del modulo de nuestro aplicacion, debemos asegurarnos de importar la libreria HttpClienteModule y definir a ruta a nuestros servicios con las instrucciónes import { UserService } from './services/user.service', import { PokemonService } from './services/pokemon.service . Para confiugrar la paginación en nuestra proyecto será necesario contemplar la importación de la libreria NgxPaginationModule
-
-Condigo de Configuración de Acceso al Servicio
-
-    import { UserService } from './services/user.service';
-    import { PokemonService } from './services/pokemon.service';
-    import { NgxPaginationModule } from 'ngx-pagination';
-    
-    
-    imports: [
-    HttpClientModule, NgxPaginationModule
-    ],
-
-Las importaciones se realizaran en los archivos pokemons-lista.component.ts, home.component.ts y login.commponent.ts
-
-![image](https://github.com/user-attachments/assets/592f39f2-6203-41e7-b00a-66fe8f83304f)
-
-Ejemplo de Configuración
-
-### 4.- Actualización de TypeSccript del Componente usuarios-lista para la Presentación de la API
-Finalizada la creación del componente debemos dirigirnos al archivo pokemon-lista.component.ts para cconfigurar la logica de acceso al servicio del consumo de la API Pokemons y el como se reccorrera el JSON de datos para su presentación en el HTML.
-
-Para esto dentro del archivo usuarios-lista.component.ts copiamos el siguiente código:
-
-    import { Component, OnInit, ViewChild } from '@angular/core';
-    import { PokemonService } from '../../services/pokemon.service';
-    import { MatCardModule } from '@angular/material/card';
-    import { MatTableModule, MatTableDataSource } from '@angular/material/table';
-    import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-    import { MatIcon } from '@angular/material/icon';
-    import { CommonModule } from '@angular/common';
-    import { Pokemon, PokemonApiResponse } from './pokemon.interface';
-    import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-    import { PokemonDetailsComponent } from '../../pokemon-details/pokemon-details.component';
-    import { PokemonEditComponent } from '../pokemon-edit/pokemon-edit.component';
-    import { MatFormField } from '@angular/material/form-field';
-    import { MatLabel } from '@angular/material/form-field';
-    import { MatOption } from '@angular/material/core';
-    import { MatSelect } from '@angular/material/select';
-    import { MatInput } from '@angular/material/input';
-    
-    @Component({
-      selector: 'app-usuarios-lista',
-      standalone: true,
-      imports: [
-        MatCardModule,
-        MatTableModule,
-        MatPaginatorModule,
-        CommonModule,
-        MatIcon,
-        MatDialogModule,
-        MatFormField,
-        MatLabel,
-        MatOption,
-        MatSelect,
-        MatInput,
-      ],
-      templateUrl: './pokemon-lista.component.html',
-      styleUrls: ['pokemon-lista.component.css'],
-    })
-    export class UsuariosListaComponent implements OnInit {
-      tiposPokemon: string[] = ['Todos']; // Se inicializa con "Todos"
-      todosLosPokemones: Pokemon[] = []; // Para conservar todos los datos originales
-    
-      displayedColumns: string[] = [
-        'id',
-        'nombre',
-        'habilidades',
-        'tipo',
-        'region',
-        'imagen',
-        'detalles',
-        'acciones',
-      ];
-      dataSource = new MatTableDataSource<Pokemon>([]);
-      searchQuery: string = ''; // Variable para la búsqueda
-      selectedType: string = 'Todos'; // Tipo seleccionado por defecto
-    
-      @ViewChild(MatPaginator) paginator!: MatPaginator;
-    
-      constructor(
-        private pokemonService: PokemonService,
-        private dialog: MatDialog
-      ) {
-        this.dataSource.filterPredicate = (data: Pokemon, filter: string) => {
-          const filterValue = filter.trim().toLowerCase();
-          return (
-            data.nombre.toLowerCase().includes(filterValue) ||
-            data.tipo.toLowerCase().includes(filterValue) ||
-            data.habilidades.toLowerCase().includes(filterValue)
-          );
-        };
-      }
-    
-      ngOnInit(): void {
-        
-        this.pokemonService.getPokemons().subscribe(
-          (response: PokemonApiResponse) => {
-            const pokemonData: Pokemon[] = response.results.map((pokemon, index) => {
-              const id = index + 1; // Calcula el ID antes de usarlo
-              return {
-                id: id, // Asigna el ID al objeto
-                nombre: pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1),
-                habilidades: 'No disponible',
-                tipo: 'No disponible',
-                url: pokemon.url,
-                generacion: this.getPokemonGeneracion(id), // Ahora ID es reconocido
-              };
-            });
-    
-            pokemonData.forEach((pokemon) => {
-              this.pokemonService
-                .getPokemonDetails(pokemon.url)
-                .subscribe((details) => {
-                  pokemon.habilidades = details.abilities
-                    .map((ability: any) => ability.ability.name)
-                    .join(', ');
-                  pokemon.tipo = details.types
-                    .map((type: any) => type.type.name)
-                    .join(', ');
-                  pokemon.imagen =
-                    details.sprites.front_default || '/assets/default-pokemon.png';
-                  this.dataSource.data = [...pokemonData];
-                  this.todosLosPokemones = [...pokemonData];
-    
-                  // Actualizamos los tipos únicos
-                  const tipos = details.types.map((type: any) => type.type.name);
-                  this.tiposPokemon = Array.from(
-                    new Set(['Todos', ...this.tiposPokemon, ...tipos])
-                  );
-                });
-            });
-    
-            this.dataSource.paginator = this.paginator;
-          },
-          (error) => {
-            console.error('Error al cargar los datos:', error);
-          }
-        );
-      }
-    
-      // Métodos para las acciones
-      verDetalles(pokemon: Pokemon): void {
-        this.dialog.open(PokemonDetailsComponent, {
-          data: pokemon,
-          width: '400px',
-        });
-      }
-    
-      editarPokemon(pokemon: Pokemon): void {
-        console.log('Editar Pokémon:', pokemon);
-    
-        const dialogRef = this.dialog.open(PokemonEditComponent, {
-          data: { ...pokemon },
-          width: '400px',
-        });
-    
-        dialogRef.afterClosed().subscribe((result) => {
-          if (result?.action === 'save') {
-            const index = this.dataSource.data.findIndex(
-              (p) => p.id === result.data.id
-            );
-            if (index >= 0) {
-              this.dataSource.data[index] = result.data;
-              this.dataSource.data = [...this.dataSource.data];
-            }
-          } else if (result?.action === 'delete') {
-            this.dataSource.data = this.dataSource.data.filter(
-              (p) => p.id !== result.data.id
-            );
-          }
-        });
-      }
-    
-      eliminarPokemon(pokemon: Pokemon): void {
-        const confirmacion = window.confirm(
-          `¿Estás seguro de que deseas eliminar a ${pokemon.nombre}?`
-        );
-        if (confirmacion) {
-          this.dataSource.data = this.dataSource.data.filter(
-            (p) => p.id !== pokemon.id
-          );
-        }
-      }
-    
-      // Funciones para filtro y búsqueda
-      applyFilter(event: Event): void {
-        const input = event.target as HTMLInputElement;
-        this.searchQuery = input.value.trim().toLowerCase();
-        this.applyCombinedFilters();
-      }
-    
-      filterByType(type: string): void {
-        this.selectedType = type;
-        this.applyCombinedFilters();
-      }
-    
-      resetFilters(): void {
-        this.selectedType = 'Todos';
-        this.dataSource.data = this.todosLosPokemones;
-        this.searchQuery = '';
-        this.dataSource.filter = '';
-        const inputElement = document.getElementById('idBusqueda') as HTMLInputElement;
-        if (inputElement) {
-          inputElement.value = '';
-        }
-      }
-    
-      applyCombinedFilters(): void {
-        this.dataSource.data = this.todosLosPokemones.filter((pokemon) => {
-          const matchesType =
-            this.selectedType === 'Todos' ||
-            pokemon.tipo.toLowerCase().includes(this.selectedType.toLowerCase());
-          const matchesSearch =
-            this.searchQuery === '' ||
-            pokemon.nombre.toLowerCase().includes(this.searchQuery);
-          return matchesType && matchesSearch;
-        });
-      }
-    
-      getPokemonGeneracion(id: number): string {
-        if (id >= 1 && id <= 151) {
-          return 'Kanto';
-        } else if (id >= 152 && id <= 251) {
-          return 'Johto';
-        } else if (id >= 252 && id <= 386) {
-          return 'Hoenn 3';
-        } else if (id >= 387 && id <= 493) {
-          return 'Sinnoh';
-        } else if (id >= 494 && id <= 649) {
-          return 'Unova';
-        } else if (id >= 650 && id <= 721) {
-          return 'Kalos';
-        } else if (id >= 722 && id <= 809) {
-          return 'Alola';
-        } else if (id >= 810 && id <= 905) {
-          return 'Galar';
-        } else {
-          return 'Paldea';
-        }
-      }
-    
-      //Funcion para filtar por region
-      filterByRegion(region: string) {
-        if (region === 'Todos') {
-          this.dataSource.data = [...this.todosLosPokemones]; // Muestra todos los Pokémon
-        } else {
-          this.dataSource.data = this.todosLosPokemones.filter(
-            (pokemon) => pokemon.generacion === region
-          );
-        }
-      }
-      
-    }
-
-Dentro del archivo se contemplan las siguientes funciona para admitir operaciones de edicion y filtrado sobre la tabla de datos.
-
-Metodo verDetalles para consultar la información especifica de un pokemon en un card independiente
-
-     verDetalles(pokemon: Pokemon): void {
-        this.dialog.open(PokemonDetailsComponent, {
-          data: pokemon,
-          width: '400px',
-        });
-      }
-
-
-Para trabajar con esta funcion debemos crar el componente pokemon-detalles.component para desplegar en card independiente la informacion del pokemon selecccionado
-
-Código componente pokemon-detalles.component.ts
-
-    import { Component, Inject } from '@angular/core';
-    import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-    import { Pokemon } from '../components/pokemons-lista/pokemon.interface';
-    import { MatIcon } from '@angular/material/icon';
-    
-    @Component({
-      selector: 'app-pokemon-details',
-      standalone: true,
-      imports: [MatIcon],
-      template: `
-        <div class="dialog-header">
-          <h1>Detalles de {{ data.nombre }}</h1>
-          <button mat-icon-button (click)="onClose()">
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-        <div mat-dialog-content class="dialog-content">
-          <img [src]="data.imagen" alt="{{ data.nombre }}" />
-          <p><strong>ID:</strong> {{ data.id }}</p>
-          <p><strong>Nombre:</strong> {{ data.nombre }}</p>
-          <p><strong>Habilidades:</strong> {{ data.habilidades }}</p>
-          <p><strong>Tipo:</strong> {{ data.tipo }}</p>
-          <p><strong>Generacion:</strong> {{ data.generacion }}</p>
-        </div>
-        <div mat-dialog-actions>
-          <button mat-raised-button style="color:white; font-family: Cascadia Code; background-color: #cd7600; border-color: #cd7600; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" (click)="onClose()">Cerrar</button>
-        </div>
-      `,
-      styleUrls: ['pokemon-detalles.component.css'],
-    })
-    export class PokemonDetailsComponent {
-      constructor(
-        @Inject(MAT_DIALOG_DATA) public data: Pokemon,
-        private dialogRef: MatDialogRef<PokemonDetailsComponent>
-      ) {}
-    
-      onClose(): void {
-        this.dialogRef.close();
-      }
-    }
-
-
-Metodo editar Pokemon
-Este metodo permite la edicion de información de la data de la tabla de consulta Pokemons, presenta los inputs de registro del pokemon seleccionado  con su informacion actual en una ventada idependiente. Admite el guardado o cancelación de la informacion ingresada en los input.
-
-Codigo función editarPokemon
-
-    editarPokemon(pokemon: Pokemon): void {
-        console.log('Editar Pokémon:', pokemon);
-    
-        const dialogRef = this.dialog.open(PokemonEditComponent, {
-          data: { ...pokemon },
-          width: '400px',
-        });
-    
-        dialogRef.afterClosed().subscribe((result) => {
-          if (result?.action === 'save') {
-            const index = this.dataSource.data.findIndex(
-              (p) => p.id === result.data.id
-            );
-            if (index >= 0) {
-              this.dataSource.data[index] = result.data;
-              this.dataSource.data = [...this.dataSource.data];
-            }
-          } else if (result?.action === 'delete') {
-            this.dataSource.data = this.dataSource.data.filter(
-              (p) => p.id !== result.data.id
-            );
-          }
-        });
-      }
-
-Para trabjar esta funcion nuevamente debemos crear un componente independiente que maneje la logia de presentacion y guardado de la informacion del pokemon seleccionado por ello debemos generar un nuevo componente llamado  pokemon-edit; dentro del componente pokemon-edit.component.ts pegaremos el siguiente codigo para presentar la informacion de un pokemon seleccionado en un input editable.
-
-Código pokemon-edit.component.ts
-
-    import { Component, Inject } from '@angular/core';
-    import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-    import { MatFormFieldModule } from '@angular/material/form-field';
-    import { MatInputModule } from '@angular/material/input';
-    import { MatDialogModule } from '@angular/material/dialog';
-    import { FormsModule } from '@angular/forms';
-    import { NgIf } from '@angular/common';
-    import { MatIcon } from '@angular/material/icon';
-    import { Pokemon } from '../pokemons-lista/pokemon.interface';
-    
-    @Component({
-      selector: 'app-pokemon-edit',
-      standalone: true,
-      imports: [
-        MatFormFieldModule,
-        MatInputModule,
-        MatDialogModule,
-        FormsModule,
-        MatIcon,
-      ],
-      template: `
-      <div style="border-radius: 12px;">
-        <div class="dialog-header">
-          <h1>Editar Pokémon: {{ data.nombre }}</h1>
-          <button mat-icon-button mat-dialog-close>
-            <mat-icon>close</mat-icon>
-          </button>
-        </div>
-        <div mat-dialog-content>
-          <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label style="font-family: Cascadia Code;">Nombre</mat-label>
-            <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.nombre" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label style="font-family: Cascadia Code;" >Habilidades</mat-label>
-            <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.habilidades" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label style="font-family: Cascadia Code;">Tipo</mat-label>
-            <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.tipo" />
-          </mat-form-field>
-          <mat-form-field appearance="fill" style="width: 100%;">
-            <mat-label style="font-family: Cascadia Code;">Region</mat-label>
-            <input style="font-family: Cascadia Code;" matInput [(ngModel)]="data.generacion" />
-          </mat-form-field>
-          <img
-            [src]="data.imagen"
-            alt="{{ data.nombre }}"
-            style="width: 200px; height: 200px; border-radius: 50%; margin-top: 15px;"
-          />
-        </div>
-        <div mat-dialog-actions>
-          <button style="color:white; font-family: Cascadia Code; background-color: #568c58; border-color: #568c58; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" mat-button (click)="confirmSave()">Guardar</button>
-          <button style="color:white; font-family: Cascadia Code; background-color: #af2945; border-color: #af2945; border-radius: 6px; height: 40px;  width: 120px; margin-top: 2%; margin-left: 2%; margin-bottom: 3%;" mat-button mat-dialog-close>Cancelar</button>
-        </div>
-        </div>
-      `,
-      styleUrls: ['pokemon-edit.component.css'],
-    })
-    export class PokemonEditComponent {
-      constructor(
-        @Inject(MAT_DIALOG_DATA) public data: Pokemon,
-        private dialogRef: MatDialogRef<PokemonEditComponent>
-      ) {}
-    
-      confirmSave(): void {
-        const confirmacion = window.confirm(
-          '¿Deseas guardar los cambios realizados?'
-        );
-        if (confirmacion) {
-          this.dialogRef.close({ action: 'save', data: this.data });
-        } else {
-          console.log('Guardado cancelado.');
-        }
-      }
-    }
-
-Metodo para la eliminación de registros Pokemons
-Este metodo recibe como entrada un elemento de tipo pokemon que corresponde al registro del pokemon seleccionado para eliminación y proporciona al usuario un mensaje de confirmacion sobre la eliminacion
-
-Código eliminarPokemon
-
-    eliminarPokemon(pokemon: Pokemon): void {
-        const confirmacion = window.confirm(
-          `¿Estás seguro de que deseas eliminar a ${pokemon.nombre}?`
-        );
-        if (confirmacion) {
-          this.dataSource.data = this.dataSource.data.filter(
-            (p) => p.id !== pokemon.id
-          );
-        }
-      }
-
-Metodo para filtar pokemons por tipos
-Este metodo recibe el elemento actual seleccionado en un Combo box que contiene los tipos de pokemons consultados y filtra todos los pokemons coincidentes para mostrarlos en la tabla
-
-Código funcion filtrar por  tipo
-
-    filterByType(type: string): void {
-        this.selectedType = type;
-        this.applyCombinedFilters();
-      }
-
-Metodo para filtar pokemons por region
-Este metodo recibe un string con el nombre de la region a filtrar para los pokemons. El valor del string es proporcionado de acuerdo al boton presionado por el usuario, cada boton de la interfaz home envia una region diferente de acuerdo a su texto de presentacion.
-
-Código función  filtrarRegion
-
-    filterByRegion(region: string) {
-        if (region === 'Todos') {
-          this.dataSource.data = [...this.todosLosPokemones]; // Muestra todos los Pokémon
-        } else {
-          this.dataSource.data = this.todosLosPokemones.filter(
-            (pokemon) => pokemon.generacion === region
-          );
-        }
-      }
-
-Los metodos descritos ya deberan trabajar correctamente con el componente pokemon-lista.component.html editado anteriormente. Este componente ya integra la tabla de presentacion de los datos, botons de filtro por region, Combo box para el tipo pokemon asi como una barra de busqueda. El componente html ya se encuentra configurado para llamar a las funciones especificas cada vez que se seleccione una operacion sobre la data de pokemons, ya sea filtrado por Combo Box, botones o edicion del registro.
-
-### 7.- Integración del Component en la Apliacion
-Por ultimo cuando se termina la configuración del consumo y presentación del contenido de la API el ultimo paso será definir las ruta de acceso a los compoente dentro del arhivo src/app/app.module.ts agregando las importaciónes
-
-como se muestra en el siguiente código:
-
-    import { NgModule } from '@angular/core';
-    import { CommonModule } from '@angular/common';
-    import { FormsModule } from '@angular/forms';
-    import { LoginModule } from './login/login.module';
-    import { HomeModule } from './home/home.module';
-    import { HeaderComponent } from './header/header.component';
-    import { MenuComponent } from './menu/menu.component';
-    import { FooterComponent } from './footer/footer.component';
-    
-    @NgModule({
-      declarations: [],
-      imports: [
-        CommonModule,FormsModule, LoginModule, HomeModule, HeaderComponent, MenuComponent, FooterComponent
-      ]
-    })
-    export class AppModule { }
-    
-
-    import { PokemonsListaComponent } from './pokemons-lista/pokemons-lista.component';
-
-Configurado el manejo de las rutas a nuestros compoenente nos dirijimos a nuestro archivo src/app.routes.ts y dentro del el configuramos las rutas reconocidas por nuestra aplicacion, esto para mostrar como pagina principal el componente login y permitir el redireccionamiento al componente home en caso que el usuario ingresado sea valido.
-
-Codigo de manejo de rutas:
-
-    import { Routes } from '@angular/router';
-    import { LoginComponent } from './login/login.component';
-    import { HomeComponent } from './home/home.component';
-    import { PokemonsListaComponent } from './components/pokemons-lista/pokemons-lista.component'; 
-    
-    export const routes: Routes = [
-      { path: '', redirectTo: 'login', pathMatch: 'full' }, 
-      { path: 'login', component: LoginComponent },
-      {
-        path: 'home',
-        component: HomeComponent,
-        children: [
-          { path: '', component: HomeComponent }
-        ]
-      },
-    
-    ];
-
-![image](https://github.com/user-attachments/assets/2b79014e-f261-4e25-8465-8698cfd6f094)
-
-Manejo de rutas
-
-Por ultimo para que nuestro proyecto cargue de manera correcta el formulario de login al ejecuttarse dentro del archivo app.component.html agregamos el siguiente código, para que el login sea cargado como componente principal
-
-Instrucción de incorporacion:
-
-    <main class="main">
-      <router-outlet></router-outlet> 
-    </main>
-
-![image](https://github.com/user-attachments/assets/d8a8d99b-545b-48be-9887-0ee0a977a642)
-
-Ejemplo de Incorporación del login a la Ejecución Base
-
-### 8.- Ejecución de la Aplicacion y Comporbación del Consumo de la API
-Con esto hemos finalizado el desarrollo de la pracica; para verificar que hemos realizado correctamente el desarrollo de la aplicacion web dentro del login ingresaremos inicialmente un usario y contraseña aleatorio para verificar que la aplicaccion arroje el mensaje de alerta de usuario invalido si tratamos de loguearnos con un usuario no incluido en la api consultada.
-
-Luego intentaremos loguearno nuevamente con el usuario john@gmail.com  con constraseña 	m38rmF$ para validar que se nos redirecciones a la ruta home si el usuario es reconocido como un usuario valido para la API consultada.
-
-Comando de ejecución:
-    
-    ng serve 
-
-
-
-![image](https://github.com/user-attachments/assets/b0661f76-c9c9-4845-a903-c398f0e752b9)
-
-![image](https://github.com/user-attachments/assets/4e8e0cb5-17c4-41fd-8ea3-3b27166b6b19)
-
-Ejecución de la Apliacion con Usuario Invalido
-
-![image](https://github.com/user-attachments/assets/834aba3d-8876-40f0-ba2e-bf43f88e91ce)
-
-![image](https://github.com/user-attachments/assets/855dfe0c-d49c-4910-a2c8-94e030debd6a)
-
-
-
-Ejecucución de la Aplicación con Usuario Valido
-![image](https://github.com/user-attachments/assets/8c48ac43-5261-4d84-9234-d6487247f8a6)
-
-
-Al loguearnos con un usuario valido nuestra aplicacion nos redigira a la ruta home donde se presentarán la tabla con la infomracion de los  pokemons consultados
-
-# Resultado Final del Consumo de la API
-![image](https://github.com/user-attachments/assets/4ba4eeb3-1825-4059-b7e4-26cad18f8813)
-
-
-# Operaciones Sobre la API - Pokemons
-## Filtro por tipo pokemon
-![image](https://github.com/user-attachments/assets/41d1817b-0a04-411e-9f70-784e3132c562)
-
-
-## Busqueda de pokemon especifico
-![Uploading image.png…]()
-
-
-## Filtro de pokemons por Region
-![Uploading image.png…]()
+## Pantalla de Visualización de un Usuario Específico  
+![image](https://github.com/user-attachments/assets/9915ee02-84fb-4ed4-8e27-dfe5aa4499c1)
 
+## Pantalla de Tabla de Comidas  
+![image](https://github.com/user-attachments/assets/5a0605f4-931a-4b16-8079-589b5f11b049)
+
+## Pantalla de Visualización de una Comida Específica   
+![image](https://github.com/user-attachments/assets/1dd4390a-5c0d-4848-a728-42a2c15e917f)
+
+# 2.- Explicación del Código  
+Para el desarrollo del proyecto ha sido utilizado Angular para la creación del frontend de la aplicación, cumpliendo con la función de creación de las vistas y de realizar llamadas al Backend para la obtención de información requerida por el usuarios (Lista de usuarios, Lista de Comidas, Validación de un Usuario, Eliminación, etc.). Inmplementando funcionalidades de solicitures estándar: GETM POST, PUT, DELETE.
+
+## Requisitos Previos  
+1.- IDE de desarrollo (Visual Studio CODE)  
+2.- Instalación del Framework ANGULAR CLI vs 18.2.10  
+3.- Instalación de librerias npm  
+4.- Instalación de librerias boostrap  
+5.- Instalación de libreria ngx pagination  
+6.- Instalación de Material Desing (Para la incorporación de componentes)  
+
+## Módulos Generados   
+###  Login  
+Componente que conforma una interfaz de usuario que permite realizar la autenticación en la aplicación. Se encuentra construida por elemnentos como un mensaje de bienvenida, fondo con degradado, mensaje de introducción a la aplicación, imagenes referentes al tema de la aplicación y un formulario de inicio de sesión que solicita al usuario el ingreso de un email y contraseña
+
+#### Código de estilos CSS  
+Conjunto de Estilo CSS, utilizado para la definición de la apariencia del login, define el contenedor principal de la tarjeta, estilos de sombra y tamaño de imagenes para una mejor presentación de Login   
+
+![image](https://github.com/user-attachments/assets/df1a9805-d30b-4303-b6b9-9a157868dbd3)
+
+#### Código de Archivo HTML  
+Código HTML que define las estructuras e interfaz de inicio de seción, compuerto por bloques card-header, así como la implementación del componente "<app - footer>"
+
+![image](https://github.com/user-attachments/assets/25d1d92c-884d-4026-9de4-4751ddc2c5f4)
+
+#### Código de Componente  
+Componente diseñado para la gestión de la lógica de inicio de sesión de la aplicación, haciendo la importación de los módulos necesarios para el funcionamiento de la interfaz, el componente incluye un formulario para la captura de datos del usuario y la obtención de datos por parte del backend mediante el uso del método getUsers(), Este método hace una llamada a la API del backend para la obtención de la lita de todos los usuarios registrados, utilizando esta información para la comparación de información ingresada por el usuario.
+
+![image](https://github.com/user-attachments/assets/0e541420-57b3-4a79-bac8-756825d54640)
+
+###  Home  
+Componente correspondiente al funcionamiento de la pantalla principal de la aplicación, implementando una barra superior que incluye un menú de selección de operaciones donde el usuario puede seleccionar los datos que serán recuperados y mostrados de manera organizada
+
+![image](https://github.com/user-attachments/assets/c47cfc9c-8d15-4b39-820a-a0f925efa0b1)
+
+#### Código de estilos CSS  
+Define los estilos para el contenedor con un fondo degradado y centrado, mismo que proporciona una correcta visibilidad de la página, definiendo esquinas redondeadas para los elementos, así como la implementación de una sombra para una mejor presentación de los elementos 
+
+![image](https://github.com/user-attachments/assets/1c02cb0b-cfcc-447a-8fb1-9933059da905)
+
+#### Código de Archivo HTML  
+El código proporciona una estructura básica para la página webm implementando una barra superior, contenedor y pie de página. Dentro del código es utilizado el componente <app - footer>, se define principalmente una pantalla amigable preparada para la apertura de otros elementos
+
+![image](https://github.com/user-attachments/assets/370d13da-b278-4a57-93aa-f757910dfa00)
+
+#### Código de Componente  
+Implementa las dependencias necesarias para para el funcionamiento del componente, proporciona características como una barra de herramientas, botones, íconos y menú, así mismo implementa componentes para la navegación e interacción con rutas de la aplicación, permitiendo navegar entre las diferentes interfaces creadas
+
+![image](https://github.com/user-attachments/assets/cdc9617f-5c9b-479a-981b-9face0fef777)
+
+###  Footer  
+Define el componente de pie de página personalizado dentro de la aplicación. Este componente es utilizado para mostrar información relevante del sistema mediante una barra inferior dentro de la página.
+
+#### Código de estilos CSS  
+Estilo CSS que proporciona propiedades de color, radio y tamaño del tipo de letra  
+
+![image](https://github.com/user-attachments/assets/1892b965-f3f4-44ea-8111-61392831c45b)
+
+#### Código de Archivo HTML  
+Es implementada la estructura "mat-card" para la construcción de un pie de página el cual muestra el mensaje "Todos los derechos reservados ITO" además de un logo correspondiente.
+
+![image](https://github.com/user-attachments/assets/ea422a60-9a8c-407b-9f41-19ef8adc1443)
+
+#### Código de Componente  
+El código se encarga de representar el pie de página en la aplicación, configura las propiedades básicas del elemento, permite su uso como plantilla en etiqueta HTML
+
+![image](https://github.com/user-attachments/assets/8d41e78e-514c-43c8-b43a-1680f8ed359a)
+
+###  Header  
+Corresponde al elemento de encabezado, proporciona información y funcionalidad para la selección dentro de un menú, así como la foto de perffl.
+
+#### Código de estilos CSS  
+El código define estilos especificos para el encabezado, estableciendo un tono azul con degradado, así como una forma circular para la imagen del usuario
+
+![image](https://github.com/user-attachments/assets/37f14fdc-463e-4ef3-8fef-1ae6acd91dd2)
+
+#### Código de Archivo HTML  
+Define la estructura del encabezado haciendo uso de los componentes mat-card y mat-card-content de la paquetería de Angular Material, implementando la estructura <app - menu> para el uso de componente de un menú de navegación
+
+![image](https://github.com/user-attachments/assets/497d4db0-5257-4cb9-9280-4133a16312b1)
+
+#### Código de Componente  
+Define la gestión de operaciones del encavezado, incluye funcionalidade para la obtencion de una lista de usuairos 
+
+![image](https://github.com/user-attachments/assets/e58da92e-6a09-4e0a-ab00-b199a57d448e)
+
+###  Menu  
+#### Código de Archivo HTML  
+Define un menú desplegable interactivo, conntiene diferentes acciones, haciendo uso de mat-icon-button y mat-menu para su construcción; Es generaado un botón flotante que al ser presionado es mostrado un emnú interactivo 
+
+![image](https://github.com/user-attachments/assets/d412dcfd-47d7-4e2c-8010-b3f1d9f1b3fd)
+
+#### Código de Componente  
+Componente que implementa operaciones para la navegación entre distintas rutas de la aplicación, de acuerdo a la opción seleccionada por el usuario, permitiendo la navegación entre las pantallas de: Usuarios, Home, Comidas y Login.
+
+![image](https://github.com/user-attachments/assets/86f52355-964a-4162-a273-09e6b664264d)
+
+###  Comidas-details  
+#### Código de estilos CSS  
+Define el estido del cuadro de dialogo encargado de mostrar las características principales de la comida seleccionada, el contenido del cuadro de díalo contiene un fondo azul, diseño redondeado con una imagen central circular 
+
+![image](https://github.com/user-attachments/assets/1d1eccbe-652c-4888-b08d-26c5dc983932)
+
+#### Código de Componente  
+Componente utilizado para mostrar los detalles de un elemento de la lista de comidas, esto dentro de un cuadro de diálogo, incluyendo una imagen, nombre, ingredientes y precio, implementando un botón central de cerrar para mayor facilidad al usuario
+
+![image](https://github.com/user-attachments/assets/34b42eed-db63-463c-be65-a2d0ef4c6952)
+
+![image](https://github.com/user-attachments/assets/c378ca98-4b65-4558-abc2-9a7734e52088)
+
+###  Usuarios-details  
+#### Código de estilos CSS  
+Al igual que "comidas-details" son definidas los estilos correspondientes a la personalización del contendio del cuadro de diálogo donde serán mostrados todas las características de un usuario específico, implementando un fondo azul de tonalidad clara con una imagen central para idenificación de la persona.  
+
+![image](https://github.com/user-attachments/assets/ea2a52df-a8ce-45ab-a6ef-132768db76a0)
+
+#### Código de Componente  
+Define el componente utilizado para mostrar los detalles de un usuario dentro del cuadro de diálogo, empleando la paquetería de Angular Material para proporcionar una interfaz atractiva al usuario.
+
+![image](https://github.com/user-attachments/assets/6ab68b8c-0338-4c66-869b-f1300b19e8c5)
+
+![image](https://github.com/user-attachments/assets/a443efa6-710a-42ee-9792-a737a125cfc0)
+
+### Modulos Específicos     
+#### Comidas-Lista  
+Define la plantilla para mostrar la lista de platillos dentro de una tabla, incluyendo una barra de filtrado, columnas correspondientes con el ID del platillo, nombre, ingredientes, categoría, precio, imagen y botones de acción para la eliminación, edición o ver los detalles del registro.
+
+##### Código CSS  
+![image](https://github.com/user-attachments/assets/bdc39f50-f658-4213-b56e-d6c55f4dc0ba)
+
+##### Código HTML  
+![image](https://github.com/user-attachments/assets/80d6015d-ec5a-4fc8-a885-fe387eb0eb0f)
+
+##### Código de Componente   
+efine la gestión de la lista de platillos, funcionalidad del filtro, busqueda y acciones sobre los platillos, permite el filtro mediante cartegorías especificas, nombre, o precui, así como operaciones como ver los detalles de la comida haicendo uso de otros componentes, eliminación de la comida y edición de esta. haciendo uso de llamadas de actualizacón, eliminación y obtención en la API.  
+![image](https://github.com/user-attachments/assets/72f527a0-d924-4609-9eb5-805ba5e77f17)
+
+Es utilizado el componente "MatTableDataSourse" para la gestión y visualización de los datos en la tabla, aplicando la paginacipon y ordenado para facilitar la navegación y clasificación de los datos  
+![image](https://github.com/user-attachments/assets/28816d88-37c0-4c93-b4c2-ef20c631cea0)
+
+#### Comidas-Edit  
+El componente permite editar los detalles de una comida seleccionada, cada uno de los campos está vinculado al objeto data de tipo comida, haciendo uso de la directiva ngModel para el enlace entre el modelo y la vista. Cuando el usuario decide guardar los cambios, se muestra un mensaje de confirmación. si esta es afirmativa los cambios se envían de vuelta al componente.
+
+Si el usuario opta por cancelar la operacion se cierra sin realizar operaciones.
+
+##### Código CSS  
+![image](https://github.com/user-attachments/assets/d937d974-ad96-4f4a-86af-329c25cb16c2)
+
+##### Código de Componente   
+![image](https://github.com/user-attachments/assets/06f2d222-95d1-4121-b760-0e25e633bbe3)
+
+#### Usuarios-Lista  
+Componente correspondiente a la página de administración de la lista de usuarios mediante una tabla, permitiendo realizar la busqueda, ver detalles, o eliminar registros. La página ucenta con una estructura de fondo gradiente, aplicando estilos a los elementos.   
+La tabla incluye elementos pacomo lo son: Id, Nombre, Apellidos, Corro, Foto, Detalles y un apartado de acciones, que permite, editar o eliminar el registro, además es incluido un elemento de paginación que permite ajustar los tamaños de página a 20,50 y 100 elementos.
+
+![image](https://github.com/user-attachments/assets/081d4dad-5d5d-46af-99ee-26397a6d07da)
+
+##### Código CSS  
+![image](https://github.com/user-attachments/assets/b850421f-6757-4418-9145-8ba6f5803fce)
+
+##### Código HTML  
+![image](https://github.com/user-attachments/assets/6ea33d17-3598-4dd7-a24b-225d2919a0dc)
+
+##### Código de Componente   
+![image](https://github.com/user-attachments/assets/1445cde0-4864-4796-b58c-5406dfcaccc5)
+
+#### Usuarios-Edit  
+Consiste en la implementación para la edición de un usuario. Permite realizar la edición de todos los atributos, se hace uso de la instrucción PUT para el envió de datos al bakcend donde es realizada la operación de corrección retornando un mensaje de exito o fallo.
+
+##### Código CSS  
+![image](https://github.com/user-attachments/assets/23d96d1d-1c29-42f7-91f5-6d38d08a774b)
+
+##### Código de Componente   
+![image](https://github.com/user-attachments/assets/3ff8ac47-60f7-4980-bb06-8ceb7c29e864)
+
+## Servicios Generados     
+###  Comida  
+Servicio que se encarga de la gestión de las solicitudes HTTP hacia el backend para realizar operaciones sobre las comidas, hace uso del cliente HTTP de Angular para enviar y recibir datos desde el servidor  
+Se tiene una URL definida para la API de comidas en el backend Http://127.0.0.1:8000/api/comidas. Siendo este el punto de acceso al que se hará n las solicitudes para obtener, actualizar o eliminar registros.   
+Dentro del servicio se hacen solicitues HTTP de tipo GET para obtener las comidas desde el backend, obteniendo respuesta  en un objeto que contendra la lista de todas las comidas en formato JSON. Así mismo se hace una solicitud de tipo PUT para actualizar una comida existente y finalmente se puede realizar una solicitud de tipo DELETE para eliminar una comida 
+
+![image](https://github.com/user-attachments/assets/7224a442-a991-455c-90fa-a5c26432d6cb)
+
+
+###  Usuarios  
+Servicio que interactua con el backend para realizar operaciones sobre los usuarios, implementa HttpClient para realizar solicitures HTTP, permitiendo realizar acciones como la eliminación, edición y obtención de usuarios a través de la API del backend  
+Permite realizar solicitudes HTTP de tipo DELETE al servidor para la eliminación de un suario, PUT para la actualización de sus datos y GET para obtener la lista de todos los usuarios registrados 
+
+![image](https://github.com/user-attachments/assets/3be4233b-d5c4-4da5-ba74-436c435d8990)
+
+###  Global de Usuarios  
+Gestiona la información global del usuario, como su nombre y la URL de su imagen, almacena estos datos y proporciona métodos para establecer y obtener la información. Cualquier componente puede hacer uso del servicio para acceder o modificar la URL y nombre del usuario, sin necesidad de pasarlos como propiedades entre componentes 
+
+![image](https://github.com/user-attachments/assets/f4f60855-543c-42a3-98ad-ded9c2a51367)
+
+# 3.- Datos Recuperados
+
+## Correos y Contraseñas recuperados  
+![image](https://github.com/user-attachments/assets/91d92ec4-f9f0-42d7-82aa-7d9d7f7cd74f)
+
+
+## Comidas Recuperadas  
+![image](https://github.com/user-attachments/assets/a80137ba-23e6-4ffd-a56a-9c8bd0465f85)
 
